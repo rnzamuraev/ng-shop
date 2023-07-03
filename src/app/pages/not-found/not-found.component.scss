@@ -1,0 +1,23 @@
+@import "src/scss/style.scss";
+
+.not-found {
+  &__wrapper {
+    height: calc(100vh - 80px - 100px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__content {
+    padding: 50px 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 6px;
+    background-color: $black;
+  }
+  &__link {
+    text-decoration: none;
+    color: $indigo;
+  }
+}

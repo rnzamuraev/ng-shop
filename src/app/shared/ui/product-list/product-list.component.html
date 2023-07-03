@@ -1,0 +1,33 @@
+<div class="product-list  mb-20">
+  <div class="product-list__content content container">
+    <h2 class="product-list__title title">{{myTitle}}</h2>
+    <div class="product-list__filters">
+      <input id="name" class="product-list__search search" type="text" name="searchTitle" placeholder="Product name"
+        #name [(ngModel)]="filterValue.title" (input)="onChangeValue()">
+      <div class="product-list__search-wrap">
+        <input id="from" class="product-list__search search" type="number" name="searchPriceFrom"
+          placeholder="Price from" #from [(ngModel)]="filterValue.min" (input)="onChangeValue()">
+        <!-- type="number"  -->
+        <span class="product-list__icon">$min</span>
+      </div>
+      <div class="product-list__search-wrap">
+        <input id="to" class="product-list__search search" type="number" name="searchPriceTo" placeholder="Price to" #to
+          [(ngModel)]="filterValue.max" (input)="onChangeValue()">
+        <span class="product-list__icon">$max</span>
+      </div>
+    </div>
+    <ng-template #loader>
+      <shop-loading></shop-loading>
+    </ng-template>
+    <!-- <div *ngIf="products$.length, else loader" class="product-list__list"> -->
+    <div *ngIf="products.length, else loader" class="product-list__list">
+      <shop-card
+        *ngFor="let prod of newProducts | productsFilter: filterValue.title: filterValue.min: filterValue.max: filterMaxRange"
+        [product]="prod" [form]="filterValue" (click)="onResetForm()"></shop-card>
+    </div>
+    <div *ngIf="products.length > 10" class="product-list__btns">
+      <button *ngFor="let btn of myArrBtns" class="product-list__btn" #btnRef (click)="onShowMore(btn,
+        btnRef)">{{btn}}</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="side-bar">
+  <!-- <div class="side-bar__content"> -->
+  <div>
+    <h3 class="side-bar__title">Categories</h3>
+    <nav>
+      <ul class="side-bar__nav">
+        <li *ngFor="let item of navMenu, let i = index" class="side-bar__link" [class.active]="item.indicator" #elem
+          (click)="onClickHandler()" routerLink="/{{item.path}}">{{item.page}}
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div class="side-bar__help"><a href="#">Help</a><a href="">Terms & Conditions</a></div>
+  <!-- </div> -->
+</div>

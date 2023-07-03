@@ -1,0 +1,53 @@
+<!-- <form class="form">
+  <span class="form__close" (click)="onCloseModal()"></span>
+  <h3 class="form__title">Sign In to Your Account</h3>
+  <input type="email" name="email" placeholder="email">
+  <input type="password" name="password" placeholder="password">
+  <input *ngIf="isSignUp" type="text" name="name" placeholder="Username">
+  <button class="form__btn">Sign in</button>
+  <p class="form__sign-in">Don't have an account? <span (click)="onOpenNewForm()">Sign up and get started!</span></p>
+</form> -->
+<!-- <form class="form" #formSignIn (keypress)="onPres($event)"> -->
+
+<!-- <form class="form" #formSignIn>
+  <span class="form__close" (click)="onCloseModal()"></span>
+  <h3 class="form__title">{{myFormContent.title}}</h3>
+  <input type="email" name="email" placeholder="email">
+  <input type="password" name="password" placeholder="password">
+  <input *ngIf="isSignUp" type="text" name="name" placeholder="Username">
+  <button class="form__btn">{{myFormContent.btn}}</button>
+  <p class="form__sign-in">{{myFormContent.span[0]}} <span (click)="onOpenNewForm()">{{myFormContent.span[1]}}</span>
+  </p>
+</form> -->
+
+<form *ngIf="isLogin" class="form" [formGroup]="formSignIn" (ngSubmit)="onSubmitSignIn()">
+  <span class="form__close" (click)="onCloseModal()"></span>
+  <h3 class="form__title">Sign In to Your Account</h3>
+  <div *ngIf="isNotUser" class="form__error">*email or password not found</div>
+  <input type="email" name="email" placeholder="email" formControlName="email" (input)="onInput()">
+  <!-- <div *ngIf="!isValidEmail" class="form__error">*password must be at least 6 characters</div> -->
+  <div *ngIf="formSignIn.get('email')?.invalid && formSignIn.get('email')?.touched" class="form__error">*password must
+    be at least 6 characters</div>
+  <input type="password" name="password" formControlName="password" placeholder="password">
+  <!-- <input type="text" name="name" placeholder="Username"> -->
+  <button class="form__btn" type="submit">Sign in</button>
+  <p class="form__sign-in">Don't have an account? <span (click)="onOpenNewForm()">Sign up and get started!</span>
+  </p>
+</form>
+
+<form *ngIf="!isLogin" class="form" [formGroup]="formSignUp" (ngSubmit)="onSubmitSignUp()">
+  <span class="form__close" (click)="onCloseModal()"></span>
+  <h3 class="form__title">Register</h3>
+  <input type="email" name="email" formControlName="email" placeholder="email">
+  <div *ngIf="formSignUp.get('email')?.invalid && formSignUp.get('email')?.touched" class="form__error">*no email</div>
+  <input type="text" name="password" formControlName="password" placeholder="password">
+  <div *ngIf="formSignUp.get('password')?.invalid && formSignUp.get('password')?.touched" class="form__error">*password
+    must contain at least 6 characters and at least one capital letter and one number.</div>
+  <div *ngIf="formSignUp.get('password')?.invalid && formSignUp.get('password')?.touched" class="form__error">
+    *unacceptable symbols: {{unacceptableSymbols}}</div>
+  <input type="text" name="name" formControlName="name" placeholder="Username">
+  <div *ngIf="formSignUp.get('name')?.invalid && formSignUp.get('name')?.touched" class="form__error">*no name</div>
+  <button class="form__btn" type="submit">Sign up</button>
+  <p class="form__sign-in">Already have an account? <span (click)="onOpenNewForm()">Sign In!</span>
+  </p>
+</form>

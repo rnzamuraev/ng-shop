@@ -1,0 +1,111 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+// body {
+//   font-family: $fontFamilyBasic, "Helvetica Neue", sans-serif;
+//   font-weight: $fontWeight;
+//   color: $color;
+// }
+body {
+  font-family: $fontFamilyBasic, "Helvetica Neue", sans-serif;
+  font-weight: 500;
+  color: $white;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.center {
+  display: block;
+  margin: 0 auto;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.wh {
+  width: 100%;
+  height: 100%;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-column-gap: 20px;
+}
+
+.content {
+  background-color: $black;
+  border-radius: $borderRadius;
+}
+
+.search {
+  font-family: Montserrat, Helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 16px;
+  color: $white;
+  outline: none;
+  border: none;
+  border-radius: 6px;
+  &[placeholder] {
+    font-weight: 400;
+  }
+}
+
+.container {
+  margin: 0 auto;
+  // padding: 0 rem($contPaddingXl);
+  max-width: rem($contWidthXxl);
+}
+
+@media (max-width: em($mediaXl)) {
+  .container {
+    max-width: rem($contWidthXl);
+  }
+}
+@media (max-width: em($mediaLg)) {
+  .container {
+    max-width: rem($contWidthLg);
+    // padding: 0 rem(20);
+  }
+  .main {
+    grid-template-columns: 280px 1fr;
+  }
+}
+@media (max-width: em($mediaMd)) {
+  .container {
+    max-width: rem($contWidthMd);
+    // padding: 0 rem(contPaddingSm);
+  }
+  .main {
+    grid-template-columns: 250px 1fr;
+  }
+}
+@media (max-width: em($mediaSm)) {
+  .container {
+    max-width: rem($contWidthSm);
+    // @include SizeRem("max-width", $mediaSm, 320, $mediaSm, 320);
+    // @include SizeRem("padding", $contPaddingMd, $contPaddingXs, $mediaSm, 320);
+    // padding-top: 0;
+    // padding-bottom: 0;
+  }
+  .main {
+    display: flex;
+    grid-column-gap: 0px;
+
+    // grid-template-columns: 1fr;
+  }
+}
+@media (max-width: em($mediaXs)) {
+  //   .container {
+  //   @include SizeRem("max-width", $mediaXs, 320, $mediaXs, 320);
+  //   @include SizeRem("padding", $contPaddingSm, contPaddingXs, $mediaXs, 320);
+  //   }
+}

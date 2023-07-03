@@ -1,0 +1,67 @@
+<ng-template #loading>
+  <shop-loading></shop-loading>
+</ng-template>
+<div *ngIf="myProduct; else loading" class="product-info content">
+  <div class="product-info__images" shopHidden #image="hiddenControl">
+    <div *ngIf="myProduct.image, else loader" class="product-info__img">
+      <img [src]="myProduct.image" [alt]="myProduct.title" />
+    </div>
+    <ng-template #loader>
+      <shop-loading></shop-loading>
+    </ng-template>
+    <div class="product-info__carousel">
+      <!-- <div *ngFor=""></div> -->
+    </div>
+  </div>
+  <div class="product-info__info">
+    <div>
+      <h2 class="product-info__title">{{myProduct.title}}</h2>
+      <div class="product-info__price">{{myProduct.price | currency}}</div>
+      <div class="product-info__color">
+        Color:
+        <div class="product-info__choose-color">
+          <label *ngFor="let color of radioBtnColor" class="product-info__check-color" [class.checked]="color.isColor"
+            (click)="onColorChecked(color.color)">
+            {{color.color}}: {{color.isColor}}
+            <!-- <input type="radio" name="color" value="{{color.color}}" -->
+            <!-- formControlName="color"/> -->
+          </label>
+        </div>
+      </div>
+      <div class="product-info__size">
+        Size:
+        <div *ngFor="let size of radioBtnSize" class="product-info__choose-size">
+          <span class="product-info__check-size" [class.checked]="size.isSize" #size
+            (click)="onSizeChecked(size.size)">{{size.size}}</span>
+          <!-- <label>
+            5.5
+            <input class="product-info__check" type="checkbox" name="size" [value]="" />
+          </label> -->
+          <!-- <label *ngFor="let size of mySize" class="product-info__check-size" (click)="onResizeHandler(size.size)">
+            5.5
+            <input class="product-info__check" type="radio" name="size" [value]="size.size" />
+          </label> -->
+        </div>
+      </div>
+      <div class="product-info__btns">
+        <shop-btn [btnTextContent]="myBtnTextContentBuy" (click)="onAddToBag(myProduct)"></shop-btn>
+        <span></span>
+        <shop-btn [btnTextContent]="myBtnTextContent" (click)="onFavoritesHandler(myProduct)"></shop-btn>
+        <!-- <shop-btn [btnTextContent]="myBtnTextContent" shopHidden (click)="onFavoritesHandler(myProduct[0])"
+          #favorites="hiddenControl"></shop-btn> -->
+      </div>
+      <div *ngIf="!isWidth" class="product-info__description">
+        Description:
+        <p> {{myProduct.description}}</p>
+      </div>
+    </div>
+    <div class="product-info__purchased">
+      <span>Item sold {{myProduct.rating.count}}</span>
+      <span class="product-info__back" (click)="onBackToShop()">Back to shop</span>
+    </div>
+  </div>
+</div>
+<div *ngIf="isWidth" class="product-info__description">
+  description:
+  <p> {{myProduct.description}}</p>
+</div>

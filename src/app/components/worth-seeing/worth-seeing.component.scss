@@ -1,0 +1,10 @@
+@import "src/scss/style.scss";
+
+.worth-seeing {
+  padding: 22px 22px 26px;
+  background-color: $black;
+  border-radius: $borderRadius;
+  &__title {
+    text-align: center;
+  }
+}

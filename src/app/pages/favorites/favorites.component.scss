@@ -1,0 +1,69 @@
+@import "src/scss/style.scss";
+
+.favorites {
+  margin-bottom: 20px;
+
+  &__content {
+    margin-bottom: 20px;
+  }
+  &__sidebar {
+    height: 400px;
+  }
+  &__card-list {
+    padding: 25px 24px 24px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 20px;
+    grid-row-gap: 40px;
+    border-radius: $borderRadius;
+    background-color: $black;
+  }
+  &__sign-in {
+    width: 100%;
+    height: 100%;
+    padding: 80px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: $borderRadius;
+    background-color: $black;
+  }
+  &__wrapper {
+    // margin: 0 auto;
+    width: 200px;
+  }
+  &__title {
+    margin-bottom: 30px;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 18px;
+    text-align: center;
+  }
+  &__description {
+    margin-bottom: 30px;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: center;
+    color: $lightGrey;
+  }
+}
+@media (max-width: em($mediaXl)) {
+}
+@media (max-width: em($mediaLg)) {
+  .favorites {
+    &__card-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+@media (max-width: em($mediaMd)) {
+}
+@media (max-width: em($mediaSm)) {
+}
+@media (max-width: em($mediaXs)) {
+  .favorites {
+    &__card-list {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+}

@@ -1,0 +1,41 @@
+// @import "./mixins.scss";
+
+$lightBlack: #212123;
+$black: #191919;
+$lightGrey: #b8b8b8;
+$grey: #616e74;
+$darkGrey: #576067;
+$blueviolet: #8b57c6;
+$darkviolet: #753f8c;
+$indigo: #6c3eb8;
+$darkWhite: #f6f6f7;
+$white: white;
+
+// // Шрифт по умолчанию
+$fontFamilyBasic: "Montserrat";
+// // Дополнительный шрифт по необходимости
+// $fontFamilyAdditional: "";
+// Шрифт
+// $fontSize: rem(14);
+$fontWeight: 600;
+$color: $white;
+// @media
+$mediaXl: 1440;
+$mediaLg: 1200;
+$mediaMd: 992;
+$mediaSm: 768;
+$mediaXs: 540;
+
+// container (max-width)
+$contWidthXxl: 1274;
+$contWidthXl: 1140;
+$contWidthLg: 960;
+$contWidthMd: 718;
+$contWidthSm: 540;
+$contWidthXs: 300;
+
+$contPaddingMd: 35;
+$contPaddingSm: 94;
+$contPaddingXs: 20;
+
+$borderRadius: 6px;

@@ -1,0 +1,117 @@
+@import "src/scss/style.scss";
+
+.user {
+  height: 100%;
+  &__content {
+    // padding: 25px 20px 24px 10px;
+    display: grid;
+    grid-template-columns: 210px 1fr;
+    grid-column-gap: 10px;
+    grid-template-rows: 110px 1fr;
+    grid-row-gap: 16px;
+  }
+  &__bar {
+    padding: 25px 10px 24px 10px;
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+    font-weight: 300;
+    color: $darkWhite;
+    grid-row: 1 / 3;
+    background-color: $black;
+    border-radius: $borderRadius;
+  }
+  &__info {
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+  }
+  &__name-wrap {
+    padding-left: 10px;
+  }
+  &__name {
+    font-size: 18px;
+  }
+  &__photo {
+    width: 80px;
+    height: 80px;
+    border: 1px solid $lightBlack;
+    border-radius: 50px;
+    overflow: hidden;
+    img {
+      width: 100%;
+    }
+  }
+  &__nav {
+    margin-bottom: 25px;
+    padding-left: 10px;
+  }
+  &__nav-item {
+    margin-bottom: 5px;
+    padding: 5px 0;
+  }
+  &__link {
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: $darkWhite;
+    &.active {
+      color: $indigo;
+    }
+  }
+  &__sign-out {
+    padding-left: 10px;
+  }
+  // &__details {
+  // height: 80px;
+  // display: flex;
+  // justify-content: start;
+  // align-items: center;
+  // text-align: center;
+  // display: grid;
+  // }
+  &__header {
+    // margin-bottom: 16px;
+    height: 100%;
+    // padding-left: 20px;
+    padding: 25px 20px 20px 15px;
+    display: flex;
+    // align-items: center;
+    flex-direction: column;
+    background-color: $black;
+    border-radius: $borderRadius;
+    // text-align: center;
+  }
+  &__descr {
+    margin-top: 6px;
+    font-size: 11px;
+    font-weight: 300;
+  }
+  &__body {
+    height: 100%;
+    padding: 20px 20px 24px 15px;
+    background-color: $black;
+    border-radius: $borderRadius;
+  }
+  &__no-content {
+    padding: 25px 20px 24px 20px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 300;
+    color: $darkWhite;
+    background-color: $black;
+    border-radius: $borderRadius;
+  }
+  &__sign-in {
+    margin: auto auto;
+    text-align: center;
+    span {
+      color: $indigo;
+      cursor: pointer;
+    }
+  }
+}

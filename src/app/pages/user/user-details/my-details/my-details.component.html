@@ -1,0 +1,9 @@
+<div class="wh">
+  <form class="form" [formGroup]="form" (ngSubmit)="onChangeUserData()">
+    <label *ngFor="let elem of userData" class="form__control">
+      {{elem.category}}:
+      <input [type]="elem.type" [formControlName]="elem.controlName" />
+    </label>
+    <shop-btn type="submit" [btnTextContent]="myBtnTextContent"></shop-btn>
+  </form>
+</div>

@@ -1,0 +1,12 @@
+<div class="filter">
+  <input class="filter__search search" type="text" [class.filter__search_active]="isBorder" #inputElement
+    (input)="onNameSearch(inputElement.value)" placeholder="Search by name..." />
+  <button class="filter__icon"></button>
+  <ul class="filter__list" [style.display]="myDisplay">
+    <li *ngFor="let el of listTitle" class="filter__item" routerLink="/product/{{el.id}}"
+      (click)="onClickHandler(el.id, inputElement)">{{el.title}}
+    </li>
+    <p *ngIf="!listTitle.length">Nothing found</p>
+  </ul>
+  <!-- <component-btn [btnValue]="formBtnText" (click)="onAddTodoHandler()"></component-btn> -->
+</div>

@@ -1,0 +1,25 @@
+<section class="favorites">
+  <div class="container">
+    <div class="favorites__content main">
+      <shop-side-bar class="favorites__sidebar"></shop-side-bar>
+      <div *ngIf="favorites.length" class="favorites__card-list">
+        <shop-card *ngFor="let prod of favorites" [product]="prod"></shop-card>
+      </div>
+      <div *ngIf="!favorites.length" class="favorites__sign-in">
+        <div class="favorites__wrapper">
+          <h3 class="favorites__title title">You have no Saved Items</h3>
+          <p class="favorites__description">Sign in to sync your Saved Items across all your devices.</p>
+          <shop-btn [isBtnCondition]="isBtnCondition" [btnTextContent]="myBtnTextContent"
+            (click)="onOpenModal()"></shop-btn>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="favorites.length" class="favorites__sign-in">
+      <div class="favorites__wrapper">
+        <p class="favorites__description">Sign in to sync your Saved Items across all your devices.</p>
+        <shop-btn [isBtnCondition]="isBtnCondition" [btnTextContent]="myBtnTextContent"
+          (click)="onOpenModal()"></shop-btn>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,119 @@
+@import "src/scss/style.scss";
+
+.card {
+  // width: rem(230);
+  width: 100%;
+  border-radius: 8px;
+  background-color: $white;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  &__img {
+    margin: 0 auto;
+    width: rem(210);
+    height: rem(240);
+    display: flex;
+    justify-content: center;
+    img {
+      height: 100%;
+    }
+  }
+  &__like {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 190px;
+    right: 10px;
+    border-radius: 50%;
+    background-color: rgba($color: #fff, $alpha: 0.5);
+    &:hover {
+      * svg {
+        fill: $darkviolet;
+        // path {
+        //   stroke: #d13333;
+        // }
+      }
+    }
+  }
+  &__icon {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__content {
+    min-height: rem(110);
+    padding: 12px 12px 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: $lightBlack;
+  }
+  &__title {
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 18px;
+  }
+  &__subtitle {
+    font-size: 12px;
+    line-height: 15px;
+    color: $lightGrey;
+  }
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: $darkGrey;
+    & > p {
+      font-size: 10px;
+      line-height: 12px;
+    }
+  }
+  &__newprice {
+    margin-right: 5px;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    color: $indigo;
+  }
+  &__oldprice {
+    font-size: 13px;
+    line-height: 16px;
+    text-decoration: line-through;
+  }
+  .active {
+    * svg {
+      fill: $darkviolet;
+      // path {
+      //   stroke: #ff006f;
+      // }
+    }
+  }
+}
+@media (max-width: em($mediaXl)) {
+  .card {
+    // width: rem(250);
+  }
+}
+@media (max-width: em($mediaLg)) {
+  .card {
+    // width: rem(215);
+  }
+}
+@media (max-width: em($mediaMd)) {
+  .card {
+    // width: rem(210);
+  }
+}
+@media (max-width: em($mediaSm)) {
+  .card {
+    // width: rem(235);
+  }
+}
+@media (max-width: em($mediaXs)) {
+}

@@ -1,0 +1,50 @@
+@import "src/scss/style.scss";
+
+.form {
+  &__control {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    input {
+      margin-top: 8px;
+      padding: 5px 10px;
+      font-size: 14px;
+      font-weight: 400;
+      color: $darkWhite;
+      border: 1px solid $darkWhite;
+      border-radius: 6px;
+      background-color: transparent;
+      outline: none;
+    }
+  }
+  &__edit {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border: 1px solid $darkWhite;
+    border-radius: 6px;
+    background-color: $indigo;
+    cursor: pointer;
+  }
+}
+@media (max-width: em($mediaXl)) {
+}
+@media (max-width: em($mediaLg)) {
+}
+@media (max-width: em($mediaMd)) {
+  .form {
+    &__control {
+      input {
+        max-width: 190px;
+      }
+    }
+  }
+}
+@media (max-width: em($mediaSm)) {
+}
+@media (max-width: em($mediaXs)) {
+  //   .container {
+  //   @include SizeRem("max-width", $mediaXs, 320, $mediaXs, 320);
+  //   @include SizeRem("padding", $contPaddingSm, contPaddingXs, $mediaXs, 320);
+  //   }
+}

@@ -1,0 +1,121 @@
+@import "src/scss/style.scss";
+
+.promo {
+  padding: 0 27px 85px 35px;
+  background-color: $black;
+  position: relative;
+  border-radius: $borderRadius;
+  & > span {
+    margin-bottom: 8px;
+    font-weight: 900;
+    font-size: 119px;
+    line-height: 145px;
+    text-transform: uppercase;
+    color: $lightBlack;
+  }
+  &__subtitle {
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    color: $grey;
+  }
+  &__title {
+    margin-bottom: 24px;
+    width: rem(480);
+    font-weight: 700;
+    font-size: 42px;
+    line-height: 51px;
+    text-transform: uppercase;
+    color: $darkWhite;
+  }
+  &__img {
+    position: absolute;
+    right: 41px;
+    bottom: -19px;
+    width: 462px;
+    height: 359px;
+    background: url("../../../../assets/img/images/first-screen-image.png") no-repeat center/cover;
+  }
+}
+
+@media (max-width: em($mediaXl)) {
+  .promo {
+    & > span {
+      font-size: 100px;
+      line-height: 132px;
+    }
+    &__title {
+      width: rem(480);
+      font-size: 42px;
+      line-height: 51px;
+    }
+    &__img {
+      width: 462px;
+      height: 359px;
+    }
+  }
+}
+@media (max-width: em($mediaLg)) {
+  .promo {
+    & > span {
+      font-size: 80px;
+      line-height: 110px;
+    }
+    &__title {
+      width: rem(370);
+      font-size: 38px;
+      line-height: 46px;
+    }
+    &__img {
+      width: 462px;
+      height: 359px;
+    }
+  }
+}
+@media (max-width: em($mediaMd)) {
+  .promo {
+    padding-left: 30px;
+    & > span {
+      font-size: 52px;
+      line-height: 80px;
+    }
+    &__title {
+      width: rem(280);
+      font-size: 30px;
+      line-height: 42px;
+    }
+    &__img {
+      width: 300px;
+      height: 240px;
+    }
+  }
+}
+@media (max-width: em($mediaSm)) {
+  .promo {
+    padding: 10px 30px 85px 30px;
+    & > span {
+      font-size: 64px;
+      line-height: 90px;
+    }
+    &__title {
+      width: rem(330);
+      font-size: 30px;
+      line-height: 42px;
+    }
+    &__img {
+      width: 300px;
+      height: 240px;
+    }
+  }
+  // @include SizeRem("max-width", $mediaSm, 320, $mediaSm, 320);
+  // @include SizeRem("padding", $contPaddingMd, $contPaddingXs, $mediaSm, 320);
+  // padding-top: 0;
+  // padding-bottom: 0;
+}
+@media (max-width: em($mediaXs)) {
+  .promo {
+    // @include SizeRem("max-width", $mediaXs, 320, $mediaXs, 320);
+    // @include SizeRem("padding", $contPaddingSm, $contPaddingXs, $mediaSm, 320);
+    // padding-top: 0;
+    // padding-bottom: 0;
+  }
+}

@@ -1,0 +1,38 @@
+<div class="user">
+  <div *ngIf="currentUser" class="user__content">
+    <div class="user__bar">
+      <div class="user__info">
+        <div class="user__photo"><img [src]="currentUser.avatar" alt="avatar" /></div>
+        <div class="user__name-wrap">
+          Hi,
+          <br>
+          <h3 class="user__name">{{currentUser.name}}</h3>
+        </div>
+      </div>
+      <ul class="user__nav">
+        <li *ngFor="let link of listLink" class="user__nav-item">
+          <a class="user__link" [class.active]="link.active" (click)="onSetActiveLink(link.text)">{{link.text}}</a>
+        </li>
+      </ul>
+      <div class="user__sign-out"><a class="user__link" routerLink="/" (click)="onSignOut()">Sign out</a></div>
+    </div>
+    <!-- <div class="user__details"> -->
+    <div class="user__header">
+      <h2 class="user__title title">{{header}}</h2>
+      <p class="user__descr">Feel free to edit any of your details below to keep your account up to date. (* Obligatory
+        field)</p>
+    </div>
+    <div class="user__body">
+      <shop-my-details [currentUser]="currentUser"></shop-my-details>
+    </div>
+    <!-- </div> -->
+  </div>
+  <div class="user__no-content">
+    <shop-loading *ngIf="!currentUser && isToken"></shop-loading>
+    <div *ngIf="!currentUser && !isToken" class="user__sign-in"><span (click)="onSignIn()">Sign In</span> to Your
+      Account or
+      <span (click)="onSignUp()">Sign Up</span>
+      and Get Started!
+    </div>
+  </div>
+</div>

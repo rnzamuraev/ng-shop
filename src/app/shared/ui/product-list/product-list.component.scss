@@ -1,0 +1,123 @@
+@import "src/scss/style.scss";
+
+.product-list {
+  &__content {
+    padding: 25px 22px 23px;
+  }
+  &__title {
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  &__filters {
+    margin-bottom: 20px;
+    // height: 40px;
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    /* Firefox */
+    input[type="number"] {
+      -moz-appearance: textfield;
+    }
+  }
+  &__search {
+    padding: 12px 24px;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: $lightBlack;
+    * {
+      font-weight: 400;
+    }
+    &[name="searchPriceFrom"],
+    &[name="searchPriceTo"] {
+      padding-left: 85px;
+    }
+  }
+  &__search-wrap {
+    position: relative;
+  }
+  &__icon {
+    padding: 3px 7px;
+    // width: 20px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px;
+    // font-weight: 400;
+    text-align: center;
+    color: $white;
+    border-radius: 6px;
+    background-color: $black;
+  }
+  &__filters,
+  &__list {
+    margin-bottom: 32px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-column-gap: 20px;
+    grid-row-gap: 40px;
+  }
+  &__btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__btn {
+    margin-right: 10px;
+    padding: 10px 14px;
+    font-weight: 600;
+    line-height: 12px;
+    color: $white;
+    background-color: $indigo;
+    border: none;
+    border-radius: $borderRadius;
+    cursor: pointer;
+    .active {
+      color: #576067;
+    }
+  }
+  &__btn:last-child {
+    margin-right: 0;
+  }
+}
+@media (max-width: em($mediaXl)) {
+  .product-list {
+    &__filters,
+    &__list {
+      grid-template-columns: repeat(4, 1fr);
+      // grid-column-gap: 20px;
+      // grid-row-gap: 40px;
+    }
+  }
+}
+@media (max-width: em($mediaLg)) {
+}
+@media (max-width: em($mediaMd)) {
+  .product-list {
+    &__filters,
+    &__list {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}
+@media (max-width: em($mediaSm)) {
+  .product-list {
+    &__filters {
+      input[name="searchTitle"] {
+        grid-column: 1 / 3;
+      }
+    }
+    &__filters {
+      grid-row-gap: 20px;
+    }
+    &__filters,
+    &__list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+@media (max-width: em($mediaXs)) {
+}

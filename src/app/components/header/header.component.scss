@@ -1,0 +1,141 @@
+@import "src/scss/style.scss";
+
+.header {
+  padding: 20px 0;
+  background-color: $lightBlack;
+  &__content {
+    height: 36px;
+    // padding: 0 20px;
+  }
+  &__logo {
+    padding-left: 20px;
+    display: flex;
+    height: 100%;
+    cursor: pointer;
+    img {
+      width: 30%;
+    }
+  }
+  &__wrap {
+    padding-right: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__burger {
+    display: none;
+    border-radius: 5px;
+    background-color: $lightBlack;
+    // visibility: hidden;
+  }
+  &__icons-left {
+    width: 90px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__user {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  &__circle {
+    margin-right: 10px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: $black;
+    cursor: pointer;
+  }
+  &__username {
+    font-weight: 400;
+    font-size: 9px;
+    line-height: 11px;
+    color: $lightGrey;
+  }
+  // &__registration {
+  //   padding: 10px 15px;
+  //   width: 130px;
+  //   height: 40px;
+  //   justify-content: space-between;
+  //   align-items: center;
+  //   position: absolute;
+  //   top: 35px;
+  //   left: -45px;
+  //   background-color: $black;
+  //   z-index: 10;
+  // }
+  // &__registration &__circle {
+  //   display: none;
+  // }
+  // &__registration &__circle:hover {
+  //   display: flex;
+  // }
+  &__icons-right {
+    width: 70px;
+    height: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
+  &__count-circle {
+    width: 12px;
+    height: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: -5px;
+    bottom: -1px;
+    font-weight: 700;
+    font-size: 9px;
+    line-height: 11px;
+    // text-align: center;
+    color: $darkWhite;
+    background-color: $blueviolet;
+    border-radius: 50%;
+  }
+}
+@media (max-width: em($mediaMd)) {
+  .header {
+    &__icons-left {
+      width: 80px;
+    }
+    &__icons-right {
+      width: 60px;
+    }
+  }
+}
+@media (max-width: em($mediaSm)) {
+  .header {
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 100000;
+    &__burger {
+      display: flex;
+    }
+    &__logo {
+      display: flex;
+      height: 100%;
+      img {
+        width: 70%;
+      }
+    }
+    &__menu {
+      display: block;
+    }
+    &__content {
+      padding: 0 10px;
+    }
+    &__icons-left {
+      width: 60px;
+    }
+  }
+}

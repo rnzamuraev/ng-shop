@@ -1,0 +1,82 @@
+// функция для перевода PX в %
+@function prc($pxOne, $pxTwo) {
+  $result: calc($pxOne / $pxTwo) * 100%;
+  @return $result;
+}
+
+// функция для перевода PX в REM
+@function rem($px) {
+  $result: calc($px / 16) + rem;
+  @return $result;
+}
+
+// функция для перевода PX в EM
+@function em($px) {
+  $result: calc($px / 16) + em;
+  @return $result;
+}
+
+// Вспомогательная функция для использования в миксинах
+// для перевода из PX в другие единицы (зависит от миксина)
+@function size($px) {
+  $result: calc($px / 16);
+  @return $result;
+}
+
+// Миксин расчета FROM - TO \\ PX
+@mixin SizePx(
+  $property,
+  $startSize,
+  $minSize,
+  $maxWidthContainer,
+  $minWidth
+) {
+  #{$property}: calc(
+    #{size($minSize) + px} + #{size($startSize) - size(
+        $minSize
+      )} *
+      (
+        (100vw - #{size($minWidth) + px}) / #{size(
+            $maxWidthContainer
+          ) - size($minWidth)}
+      )
+  );
+}
+
+// Миксин расчета FROM - TO \\ REM
+@mixin SizeRem(
+  $property,
+  $startSize,
+  $minSize,
+  $maxWidthContainer,
+  $minWidth
+) {
+  #{$property}: calc(
+    #{size($minSize) + rem} + #{size($startSize) - size(
+        $minSize
+      )} *
+      (
+        (100vw - #{size($minWidth) + rem}) / #{size(
+            $maxWidthContainer
+          ) - size($minWidth)}
+      )
+  );
+}
+
+// Миксин расчета FROM - TO \\ EM
+@mixin calcSizeEm(
+  $property,
+  $startSize,
+  $minSize,
+  $maxWidthContainer,
+  $minWidth
+) {
+  #{$property}: calc(
+    #{$minSize + em} + #{$startSize - $minSize} *
+      (
+        (100vw - #{$minWidth + em}) / #{$maxWidthContainer -
+          $minWidth}
+      )
+  );
+  // 34px + (54 - 34) * ((100vw - 320px) / (767 - 320)));
+}

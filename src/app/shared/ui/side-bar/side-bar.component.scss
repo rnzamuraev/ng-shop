@@ -1,0 +1,68 @@
+@import "src/scss/style.scss";
+
+.side-bar {
+  padding: 25px 24px 24px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 6px;
+  background-color: $black;
+  * {
+    text-decoration: none;
+    color: $darkGrey;
+  }
+  &__title {
+    margin-bottom: 32px;
+    // font-family: 'Montserrat';
+    font-weight: 600;
+    line-height: 20px;
+  }
+  &__nav {
+    font-size: rem(14);
+    margin-bottom: 30px;
+    li {
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+  }
+  &__help {
+    display: flex;
+    justify-content: space-between;
+    font-size: rem(14);
+    // color: $darkGrey;
+  }
+  .active {
+    color: $indigo;
+  }
+}
+// @media (max-width: em($mediaXl)) {
+// }
+// @media (max-width: em($mediaLg)) {
+//   .side-bar {
+//     width: 280px;
+//   }
+// }
+// @media (max-width: em($mediaMd)) {
+//   .side-bar {
+//     width: 250px;
+//   }
+// }
+@media (max-width: em($mediaSm)) {
+  .side-bar {
+    width: 100%;
+    height: 100vh;
+    padding: 80px 20px 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: $black;
+    z-index: 100000;
+    display: none;
+    &__content {
+      margin: 0 auto;
+      width: rem($contWidthSm);
+    }
+  }
+}

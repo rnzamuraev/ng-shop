@@ -1,0 +1,109 @@
+@import "src/scss/style.scss";
+
+.product-info {
+  height: 100%;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 35px;
+  &__images {
+    display: grid;
+    grid-template-columns: 1fr 90px;
+    grid-column-gap: 20px;
+  }
+  &__img {
+    height: 375px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $white;
+    img {
+      width: 75%;
+    }
+  }
+  &__carousel {
+    height: 375px;
+  }
+  &__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  &__title {
+    margin-bottom: 10px;
+    font-size: 18px;
+    line-height: 22px;
+    color: $darkWhite;
+  }
+  &__price {
+    margin-bottom: 20px;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    color: $darkWhite;
+  }
+  &__check-color,
+  &__check-size {
+    padding: 4px 8px;
+    font-size: 14px;
+    line-height: 17px;
+    color: $darkWhite;
+    background-color: $lightBlack;
+    border-radius: 6px;
+    cursor: pointer;
+    // position: relative;
+    // input {
+    //   position: absolute;
+    // opacity: 0;
+    // z-index: -1;
+    // }
+  }
+  .checked {
+    background-color: $indigo;
+  }
+  // &__choose-color,
+  // &__choose-size {
+  //   label input:checked {
+  //     background-color: $indigo;
+  //   }
+  // }
+  &__color,
+  &__size {
+    display: flex;
+    align-items: center;
+  }
+  &__description {
+    p {
+      margin-top: 10px;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 15px;
+      color: $lightGrey;
+    }
+  }
+  &__color,
+  &__size,
+  &__description {
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: $darkGrey;
+  }
+  &__btns {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    span {
+      padding: 5px;
+    }
+  }
+  &__purchased {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10px;
+    color: $darkGrey;
+  }
+  &__back {
+    text-decoration: underline;
+  }
+}

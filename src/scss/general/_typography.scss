@@ -1,0 +1,42 @@
+// @font-face {
+//   font-family: $fontFamilyBasic;
+//   src: url("../fonts/" + $fontFamilyBasic + ".eot");
+//   src: url("../fonts/" + $fontFamilyBasic + ".eot?#iefix")
+//       format("embedded-opentype"),
+//     url("../fonts/" + $fontFamilyBasic + ".woff")
+//       format("woff"),
+//     url("../fonts/" + $fontFamilyBasic + ".woff2")
+//       format("woff2"),
+//     url("../fonts/" + $fontFamilyBasic + ".ttf")
+//       format("truetype");
+//   font-weight: normal;
+//   font-style: normal;
+// }
+
+@font-face {
+  font-family: $fontFamilyBasic;
+  src: url("../fonts/" + $fontFamilyBasic + "-Regular.eot");
+  src: local($fontFamilyBasic + "Regular"),
+    local("../fonts/" + $fontFamilyBasic + "-Regular"),
+    url("../fonts/" + $fontFamilyBasic + "-Regular.eot?#iefix")
+      format("embedded-opentype"),
+    url("../fonts/" + $fontFamilyBasic + "-Regular.woff2") format("woff2"),
+    url("../fonts/" + $fontFamilyAdditional + "-Regular.woff") format("woff"),
+    url("../fonts/" + $fontFamilyAdditional + "-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+// @font-face {
+//   font-family: $fontFamilyAdditional;
+//   src: url("../fonts/" + $fontFamilyAdditional + "-Regular.eot");
+//   src: local($fontFamilyAdditional + "Regular"),
+//     local("../fonts/" + $fontFamilyAdditional + "-Regular"),
+//     url("../fonts/" + $fontFamilyAdditional + "-Regular.eot?#iefix")
+//       format("embedded-opentype"),
+//     url("../fonts/" + $fontFamilyAdditional + "-Regular.woff2") format("woff2"),
+//     url("../fonts/" + $fontFamilyAdditional + "-Regular.woff") format("woff"),
+//     url("../fonts/" + $fontFamilyAdditional + "-Regular.ttf") format("truetype");
+//   font-weight: normal;
+//   font-style: normal;
+// }

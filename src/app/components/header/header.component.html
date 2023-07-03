@@ -1,0 +1,37 @@
+<header class="header">
+  <div class="header__content main container">
+    <a class="header__logo" routerLink="{{logo.path}}">
+      <!-- <a  class="header__logo"> -->
+      <img [src]="logo.icon" alt="logo" />
+      <!-- </a> -->
+    </a>
+    <div class="header__wrap">
+      <div class="header__icons-left">
+        <div class="header__burger">
+          <shop-menu-icon></shop-menu-icon>
+        </div>
+        <div class="header__user">
+          <div class="header__circle" (click)="onOpenModal()">
+            <img [src]="iconUser.icon" alt="{{iconUser.path}}" />
+          </div>
+          <span class="header__username">{{username}}</span>
+        </div>
+      </div>
+      <header-search></header-search>
+      <ul class="header__icons-right">
+        <li *ngFor="let icon of icons">
+          <a routerLink="/{{icon.path}}"><img src="{{icon.icon}}" alt="{{icon.alt}}" /></a>
+        </li>
+        <!-- <li routerLink="bag"> -->
+        <div class="header__count-circle"><span>0</span></div>
+      </ul>
+      <!-- <ul class="header__icons-right">
+        <li *ngFor="let icon of icons" routerLink="{{bag}}">
+          <img [src]="icon.icon" [alt]="icon.alt" />
+        </li>
+        <div class="header__count-circle"><span>0</span></div>
+      </ul> -->
+    </div>
+  </div>
+
+</header>

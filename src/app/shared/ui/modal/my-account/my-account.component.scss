@@ -1,0 +1,58 @@
+@import "src/scss/style.scss";
+
+.my-account {
+  width: 280px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  background-color: $black;
+  position: relative;
+  * {
+    font-weight: 400;
+    border-radius: $borderRadius;
+  }
+  &__close {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    cursor: pointer;
+    &::before,
+    &::after {
+      content: "";
+      width: 12px;
+      height: 2px;
+      position: absolute;
+      top: 50%;
+      left: 24%;
+      color: $darkGrey;
+      background-color: $darkGrey;
+    }
+    &::before {
+      rotate: -45deg;
+    }
+    &::after {
+      rotate: 45deg;
+    }
+  }
+  &__title {
+    margin-bottom: 8px;
+    font-size: 15px;
+    line-height: 18px;
+    color: $darkWhite;
+    text-align: center;
+  }
+  // &__list-link {
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  // }
+  &__link {
+    margin-top: 8px;
+    font-size: 13px;
+    line-height: 16px;
+    color: $darkWhite;
+    cursor: pointer;
+  }
+}

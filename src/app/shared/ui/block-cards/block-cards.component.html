@@ -1,0 +1,10 @@
+<section class="block-cards  mb-20">
+  <div class="block-cards__content content container">
+    <h2 class="block-cards__title title">{{myTitle}}</h2>
+    <div class="block-cards__list">
+      <shop-card *ngFor="let prod of products" [product]="prod"></shop-card>
+    </div>
+    <shop-btn [isBtnCondition]="isBtnCondition" [btnTextContent]="myBtnTextContent"></shop-btn>
+  </div>
+  <span class="block__grow"></span>
+</section>

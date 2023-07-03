@@ -1,0 +1,39 @@
+@import "src/scss/style.scss";
+
+.loader {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: $borderRadius;
+  background-color: $black;
+  &__loading {
+    display: inline-block;
+    font-size: 48px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-shadow: 0 0 2px #fff, 0 0 1px #fff, 0 0 1px #fff;
+    color: $lightBlack;
+    position: relative;
+  }
+  &__loading::after {
+    content: "Loading...";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: $white;
+    overflow: hidden;
+    animation: animloader 3s linear infinite;
+  }
+}
+
+@keyframes animloader {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}

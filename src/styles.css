@@ -1,1 +1,49 @@
 /* You can add global styles to this file, and also import other style files */
+/* @import "./scss/general/_reset.scss";
+@import "./scss/general/_variable.scss";
+@import "./scss/general/_mixins.scss";
+@import "./scss/general/_base.scss"; */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  font-family: Montserrat, "Helvetica Neue", sans-serif;
+  background: #212123;
+  font-weight: 500;
+  color: white;
+}
+/* .container {
+  margin: 0 auto;
+  max-width: calc(1274rem / 16);
+}
+
+@media (max-width: calc(1160em / 16)) {
+  .container {
+    max-width: calc(1100rem / 16);
+  }
+}
+
+@media (max-width: calc(992em / 16)) {
+  .container {
+    max-width: calc(960rem / 16);
+  }
+}
+
+@media (max-width: calc(768em / 16)) {
+  .container {
+    max-width: calc(700rem / 16);
+  }
+} */
+/* @media (max-width: calc(320em / 16)) {
+  .container {
+     max-width: calc(280rem / 16)
+  }
+} */

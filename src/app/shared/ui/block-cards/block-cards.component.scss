@@ -1,0 +1,74 @@
+@import "src/scss/style.scss";
+
+.block-cards {
+  // margin-bottom: 20px;
+  &__content {
+    padding: 25px 22px;
+    // display: flex;
+    // justify-content: space-between;
+    // background-color: $black;
+    // border-radius: $borderRadius;
+  }
+  &__title {
+    text-align: center;
+  }
+  &__list {
+    margin: 24px 0;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-column-gap: 20px;
+    grid-row-gap: 40px;
+    grid-template-rows: auto;
+    // flex-wrap: wrap;
+    // justify-content: space-between;
+  }
+  // &__btn {
+  //   margin: 0 auto;
+  //   display: block;
+  // }
+}
+@media (max-width: em($mediaXl)) {
+  .block-cards {
+    // &__content {
+    //   padding: 25px 22px;
+    //   // display: flex;
+    //   // justify-content: space-between;
+    //   background-color: $black;
+    //   border-radius: $borderRadius;
+    // }
+    // &__title {
+    //   text-align: center;
+    // }
+    &__list {
+      // margin: 24px 0;
+      // display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-column-gap: 20px;
+      grid-row-gap: 40px;
+      // grid-template-rows: auto;
+    }
+  }
+}
+@media (max-width: em($mediaLg)) {
+}
+@media (max-width: em($mediaMd)) {
+  .block-cards {
+    &__list {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}
+@media (max-width: em($mediaSm)) {
+  .block-cards {
+    &__list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+@media (max-width: em($mediaXs)) {
+  //   .block-cards {
+  //   &__list {
+  //     grid-template-columns: 1fr;
+  //   }
+  // }
+}

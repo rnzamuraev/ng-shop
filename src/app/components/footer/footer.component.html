@@ -1,0 +1,14 @@
+<footer class="footer">
+  <div class="footer__content container">
+    <div routerLink="/{{logo.path}}" class="footer__logo">
+      <img [src]="logo.icon" alt="logo" />
+    </div>
+    <div class="footer__dev">Developed by <span>Zamuraev</span></div>
+    <ul class="footer__icons">
+      <li *ngFor="let icon of icons">
+        <a [href]="icon.path" target="_blank"><img [src]="icon.icon" [alt]="icon.alt" /></a>
+      </li>
+    </ul>
+  </div>
+
+</footer>

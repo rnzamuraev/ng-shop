@@ -1,0 +1,98 @@
+// @import "./general/mixins";
+
+// $white: #ffffff;
+// $black: #000000;
+// $primary: #025fff;
+// $success: #2a9924;
+// $danger: #ea2e41;
+// $warning: #ffc907;
+// $dark: #343a40;
+
+// // Дополнительная цветовая палитра
+// $myColorWhite: #f1f1f1;
+// $myColorBlack: #000000;
+// $myColorRed: red;
+// $myColorBlue: blue;
+// $myColorGreen: green;
+// $myColorYellow: Yellow;
+// $myColorDarkGreen: #12343b;
+// $myColorDarkBlue: #3a4574;
+// $myColorBtn: #12343b;
+
+// // Шрифт по умолчанию
+// $fontFamilyBasic: "Roboto";
+// // Дополнительный шрифт по необходимости
+// $fontFamilyAdditional: "";
+// // Шрифт
+// $fontSize: rem(14);
+// $fontWeight: 400;
+// $color: $black;
+
+// // Основная цветовая палитра
+// // background
+// $myBgColor: $myColorDarkGreen;
+// // border
+// $myColorBorder: $myColorBlue;
+// // button
+// $myColorBorderBtn: $primary;
+// $myPaddingBtn: rem(10) rem(15);
+// $myDisplayBtn: inline-block;
+// $myBorderBtn: 1px solid $primary;
+// $myBorderRadiusBtn: rem(4);
+// $myBgColorBtn: transparent;
+// $myFontSizeBtn: rem(14);
+// $myFontWeightBtn: 500;
+// $myColorBtn: $white;
+// $myTextAlignBtn: center;
+// $myLineHeightBtn: 1.5;
+// $myVerticalAlignBtn: middle;
+// $myTransitionBtn: all 0.2s;
+
+// // @media
+// $mediaXl: 1440;
+// $mediaLg: 1200;
+// $mediaMd: 992;
+// $mediaSm: 768;
+// $mediaXs: 580;
+
+// // container
+// // max-width
+// $contWidthXxl: 1300;
+// $contWidthXl: 1140;
+// $contWidthLg: 960;
+// $contWidthMd: 718;
+// $contWidthSm: 540;
+// $contWidthXs: 280;
+// // padding
+// // $contPaddingXl: 1200;
+// // $contPaddingLg: 992;
+// $contPaddingMd: 35;
+// $contPaddingSm: 94;
+// $contPaddingXs: 20;
+
+// // burger
+// $burgerBgColorLine: white;
+// $burgerHeightLine: rem(3);
+// $burgerClose: 41%;
+// $burgerCloseAnimation: all 0.3s;
+
+// // modal
+// $modalBgColor: rgba(0, 0, 0, 0.5);
+// // mobile
+// $mobileMenuAnimation: all 0.3s;
+
+// // search
+// $search: rem(40);
+// $searchFZ: rem(20);
+// // $searchBorder: 1px solid $dark;
+// $searchBorder: none;
+// $searchTransition: all 0.5s;
+
+// // dropdown
+// $dropColorToggle: $white;
+// $dropBgColorArrow: $white;
+// $dropColorToggleHover: $myColorWhite;
+// $dropBgColorArrowHover: $myColorWhite;
+
+// // animation
+// $flash: rem(1440);

@@ -1,0 +1,21 @@
+<div class="modal" [ngClass]="{open: isOpen}" #modal>
+  <div class="modal__wrap container">
+    <div class="modal__content">
+      <div #modalComponent></div>
+      <!-- ********************** -->
+      <!-- <shop-sign-in></shop-sign-in> -->
+      <!-- ********************** -->
+      <!-- <form class="form">
+        <span class="form__close"></span>
+        <h3 class="form__title">Register</h3>
+        <input type="email" name="email" placeholder="email">
+        <input type="password" name="password" placeholder="password">
+        <input type="text" name="name" placeholder="Username">
+        <button class="form__btn">Create an account</button>
+        <p class="form__sign-in">Already have an account? <span>Sign In!</span></p>
+      </form> -->
+      <!-- ********************** -->
+    </div>
+  </div>
+  <div class="modal__overlay" (click)="onCloseModal() "></div>
+</div>

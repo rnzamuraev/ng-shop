@@ -1,0 +1,17 @@
+@import "src/scss/style.scss";
+
+.card {
+  width: rem(230);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  &__img {
+    margin-bottom: 20px;
+    height: rem(230);
+    img {
+      height: 100%;
+    }
+  }
+}

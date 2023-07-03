@@ -1,0 +1,14 @@
+@import "src/scss/style.scss";
+
+.btn {
+  padding: 9px 20px;
+  font-weight: 600;
+  color: $white;
+  background-color: $indigo;
+  border: none;
+  border-radius: $borderRadius;
+  cursor: pointer;
+  .active {
+    color: #576067;
+  }
+}
