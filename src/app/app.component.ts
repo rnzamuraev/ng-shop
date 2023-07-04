@@ -1,7 +1,7 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from "@angular/core";
-import { FavoritesService } from "./pages/favorites/favorites.service";
-import { HomeService } from "./pages/home/home.service";
-import { UserService } from "./pages/user/user.service";
+import { FavoritesService } from "src/app/components/pages/favorites/favorites.service";
+import { HomeService } from "src/app/components/pages/home/home.service";
+import { CurrentUserService } from "src/app/auth/components/current-user/current-user.service";
 
 @Component({
   selector: "shop-root",
@@ -21,13 +21,13 @@ export class AppComponent implements OnInit {
     this.homeService.setWidthWindow$(event.target.innerWidth);
     this.setWindowMinHeight();
     // this.homeService.windowResize();
-    this.userService.setUserHeight$(this.windowMinHeight);
+    this.currentUserService.setUserHeight$(this.windowMinHeight);
   }
 
   constructor(
     private favoritesService: FavoritesService,
     private homeService: HomeService,
-    private userService: UserService
+    private currentUserService: CurrentUserService
   ) {}
 
   ngOnInit(): void {
@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
   }
 
   private setInitUserHeight() {
-    this.userService.setInitUserHeight(this.windowMinHeight);
+    this.currentUserService.setInitUserHeight(this.windowMinHeight);
   }
 
   private setWindowMinHeight() {
@@ -52,14 +52,14 @@ export class AppComponent implements OnInit {
   }
 
   private getToken() {
-    const token = this.userService.getToken;
+    const token = this.currentUserService.getToken;
     console.log(token);
 
     if (token === null) return;
     else
-      this.userService.fetchUser().subscribe(user => {
-        this.userService.setUser$(user);
-        this.userService.setUserName$(user.name);
+      this.currentUserService.fetchUser().subscribe(user => {
+        this.currentUserService.setUser$(user);
+        this.currentUserService.setUserName$(user.name);
       });
   }
 }

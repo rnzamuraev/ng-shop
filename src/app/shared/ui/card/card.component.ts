@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
-import { FavoritesService } from "src/app/pages/favorites/favorites.service";
+import { FavoritesService } from "src/app/components/pages/favorites/favorites.service";
 import { IProduct } from "../../types/products";
 import { IFilterValue } from "../product-list/types";
 

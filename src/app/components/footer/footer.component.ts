@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { EIcons, EPath } from "../header/header.types";
+import { EIcons, EPath } from "src/app/components/header/header.interface";
 
 @Component({
   selector: "shop-footer",
