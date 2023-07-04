@@ -6,14 +6,14 @@ import { MatIconModule } from "@angular/material/icon";
 import { BrowserModule } from "@angular/platform-browser";
 
 import { StoreModule } from "@ngrx/store";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { ComponentsModule } from "./components/components.module";
 import { BASE_URL, BASE_URL_TOKEN, LOGIN_URL, LOGIN_URL_TOKEN } from "./config";
-import { PagesModule } from "./pages/pages.module";
 import { PipeModule } from "./pipe/pipe.module";
 import { SharedModule } from "./shared/shared.module";
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { AuthModule } from "./auth/auth.module";
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +26,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     FormsModule,
     ComponentsModule,
     SharedModule,
-    PagesModule,
+    AuthModule,
     PipeModule,
     StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),

@@ -1,11 +1,15 @@
-import { DOCUMENT } from "@angular/common"
-import { HttpClient } from "@angular/common/http"
-import { Inject, Injectable } from "@angular/core"
-import { Observable, Subject, catchError, delay, of } from "rxjs"
-import { BASE_URL_TOKEN } from "src/app/config"
-import { colors, sizes } from "../../data/products"
-import { IProductColor, IProductSize } from "../types/product-info"
-import { IProduct } from "../types/products"
+import { DOCUMENT } from "@angular/common";
+import { HttpClient } from "@angular/common/http";
+import { Inject, Injectable } from "@angular/core";
+import { Observable, Subject, catchError, delay, of } from "rxjs";
+
+import { BASE_URL_TOKEN } from "src/app/config";
+import { colors, sizes } from "src/app/data/products";
+import { IProduct } from "src/app/shared/types/products";
+import {
+  IProductColor,
+  IProductSize,
+} from "src/app/components/pages/product/product-info/product-info.interface";
 
 @Injectable({ providedIn: "root" })
 export class ProductsService {
@@ -30,14 +34,11 @@ export class ProductsService {
   ) {}
 
   public getProducts(): Observable<IProduct[]> {
-    return this.http
-      .get<IProduct[]>(
-        `${this.BASE_URL}/products`)
-      .pipe(
-        catchError(() => {
-          return of<IProduct[]>([]);
-        })
-      );
+    return this.http.get<IProduct[]>(`${this.BASE_URL}/products`).pipe(
+      catchError(() => {
+        return of<IProduct[]>([]);
+      })
+    );
   }
 
   public getProductsCategory(category: string): Observable<IProduct[] | never[]> {

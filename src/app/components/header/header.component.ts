@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 // import { Subscription } from "rxjs";
-import { ModalService } from "src/app/shared/ui/modal/modal.service";
+import { ModalService } from "src/app/components/modal/modal.service";
 // import { SignInComponent } from "src/app/shared/ui/modal/sign-in/sign-in.component";
-import { UserService } from "src/app/pages/user/user.service";
-import { EIcons, EPath, IIcons } from "./header.types";
+import { CurrentUserService } from "src/app/auth/components/current-user/current-user.service";
+import { EIcons, EPath, IIcons } from "./header.interface";
 
 @Component({
   selector: "shop-header",
@@ -24,16 +24,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   // @ViewChild("formSignIn", { read: ViewContainerRef })
   // private formSignIn!: ViewContainerRef;
 
-  constructor(private modalService: ModalService, private userService: UserService) {}
+  constructor(private modalService: ModalService, private currentUserService: CurrentUserService) {}
 
   ngOnInit(): void {
-    const token = this.userService.getToken;
+    const token = this.currentUserService.getToken;
     if (token === null) return;
     this.subscribeUserName();
   }
 
   public subscribeUserName() {
-    this.userService.getUserName$.subscribe(name => {
+    this.currentUserService.getUserName$.subscribe(name => {
       console.log(name);
 
       this.username = name;
@@ -55,15 +55,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
     // const { SignInComponent } = await import("src/app/shared/ui/modal/sign-in/sign-in.component");
     // this.modalService.open(this.modalService.modalSignInComponent);
     // this.modalService.setIsLogin$(true);
-    const token = this.userService.getToken;
+    const token = this.currentUserService.getToken;
 
     if (token === null) {
-      const { SignInComponent } = await import("src/app/shared/ui/modal/sign-in/sign-in.component");
+      const { LogInComponent } = await import("src/app/auth/components/log-in/log-in.component");
       this.modalService.setIsLogin$(true);
       this.modalService.open(this.modalService.modalSignInComponent);
     } else {
-      const { MyAccountComponent } = await import(
-        "src/app/shared/ui/modal/my-account/my-account.component"
+      const { OpenAccountComponent } = await import(
+        "src/app/auth/components/open-account/open-account.component"
       );
       this.modalService.open(this.modalService.modalMyAccountComponent);
     }

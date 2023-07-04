@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 
+import { ProductInfoService } from "src/app/components/pages/product/product-info/product-info.service";
 import { ProductsService } from "src/app/shared/services/products.service";
-import { ModalService } from "src/app/shared/ui/modal/modal.service";
-import { ProductInfoService } from "src/app/shared/ui/product-info/product-info.service";
 // import { ISearchProduct } from './search.types'
 import { ISearchProduct } from "src/app/components/header/search/search.types";
 
