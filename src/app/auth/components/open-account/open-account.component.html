@@ -1,9 +1,9 @@
 <div class="my-account">
   <span class="my-account__close" (click)="onCloseModal()"></span>
-  <h3 class="my-account__title">Hi, </h3>
+  <h3 class="my-account__title">Hi, {{currentUserName}}</h3>
   <!-- <div class="my-account__list-link"> -->
-  <a class="my-account__link" routerLink="/my-account" (click)="onCloseModal()">My Account</a>
-  <a class="my-account__link" routerLink="/my-account" (click)="onSignOut()">My Orders</a>
-  <a class="my-account__link" routerLink="/" (click)="onSignOut()">Sign Out</a>
+  <a class="my-account__link" (click)="onCloseModal()">My Account</a>
+  <a class="my-account__link" (click)="onCloseModal()">My Orders</a>
+  <a class="my-account__link" (click)="onSignOut()">Sign Out</a>
   <!-- </div> -->
 </div>

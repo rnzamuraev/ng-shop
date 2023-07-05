@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { LocalStorageService } from "src/app/shared/services/local-storage.service";
-import { IUserResponse } from "src/app/auth/types/auth.interface";
 import { CurrentUserService } from "src/app/auth/components/current-user/current-user.service";
+import { IUserResponse } from "src/app/auth/types/auth.interface";
+import { LocalStorageService } from "src/app/shared/services/local-storage.service";
 
 @Component({
   selector: "shop-current-user",
@@ -11,7 +11,7 @@ import { CurrentUserService } from "src/app/auth/components/current-user/current
 export class CurrentUserComponent implements OnInit {
   // private isTokenKey = this.currentUserService.getIsTokenKey;
   // private user$!: Observable<IUser | null>;
-  public currentUser!: IUserResponse;
+  public currentUser: IUserResponse = this.currentUserService.user;
   public userHeight!: string;
 
   private userInfoKey = this.currentUserService.getUserInfoKey;
@@ -19,15 +19,7 @@ export class CurrentUserComponent implements OnInit {
   constructor(
     private currentUserService: CurrentUserService,
     private localStorage: LocalStorageService
-  ) {
-    // this.user$.subscribe(user => {
-    //   console.log(user);
-    //   if (user !== null) {
-    //     this.user = user;
-    //     // this.currentUserService.setIsUser(true);
-    //   }
-    // });
-  }
+  ) {}
   ngOnInit(): void {
     this.subscribeUser();
     this.subscribeFetchUser();
@@ -46,22 +38,29 @@ export class CurrentUserComponent implements OnInit {
   private subscribeUser() {
     this.currentUserService.getUser$.subscribe(user => {
       console.log(user);
+      if (!user) return;
+
       this.currentUser = user;
+      this.currentUserService.setUserName$(user.name);
+      console.log(user.role);
     });
   }
 
   private subscribeFetchUser() {
     const token = this.currentUserService.getToken;
-    if (token === null) return;
+    console.log(token);
+
+    if (token === null) {
+      return;
+    }
 
     const userInfo = this.currentUserService.getUserInfo;
+    console.log(userInfo);
 
-    if (userInfo === false)
+    if (userInfo === true)
       this.currentUserService.fetchUser().subscribe(user => {
         console.log(user);
         this.currentUserService.setUser$(user);
-        this.currentUserService.setUserName$(user.name);
-        this.localStorage.set(this.userInfoKey, { ...user, user: true });
       });
   }
 }

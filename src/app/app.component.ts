@@ -1,7 +1,7 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from "@angular/core";
+import { CurrentUserService } from "src/app/auth/components/current-user/current-user.service";
 import { FavoritesService } from "src/app/components/pages/favorites/favorites.service";
 import { HomeService } from "src/app/components/pages/home/home.service";
-import { CurrentUserService } from "src/app/auth/components/current-user/current-user.service";
 
 @Component({
   selector: "shop-root",
@@ -58,8 +58,8 @@ export class AppComponent implements OnInit {
     if (token === null) return;
     else
       this.currentUserService.fetchUser().subscribe(user => {
-        this.currentUserService.setUser$(user);
         this.currentUserService.setUserName$(user.name);
+        this.currentUserService.setUser$(user);
       });
   }
 }

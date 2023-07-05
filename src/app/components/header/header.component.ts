@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     { path: EPath.favorite, icon: EIcons.favorite, alt: "favorites" },
     { path: EPath.bag, icon: EIcons.bag, alt: "bag" },
   ];
-  public username: string = "Guest";
+  public username = this.currentUserService.getUserGuest;
 
   // private unsubscribeModalSequence$!: Subscription;
 
@@ -27,18 +27,26 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private modalService: ModalService, private currentUserService: CurrentUserService) {}
 
   ngOnInit(): void {
-    const token = this.currentUserService.getToken;
-    if (token === null) return;
-    this.subscribeUserName();
+    // const token = this.currentUserService.getToken;
+    this.subscribeUserName$();
+    // if (token === null) return;
+    // this.subscribeUser$();
   }
 
-  public subscribeUserName() {
+  public subscribeUserName$() {
     this.currentUserService.getUserName$.subscribe(name => {
       console.log(name);
 
       this.username = name;
     });
   }
+  // public subscribeUser$() {
+  //   this.currentUserService.getUser$.subscribe(user => {
+  //     console.log(user);
+
+  //     this.username = user.name;
+  //   });
+  // }
 
   // private createANewModalWindow = {
   //   component: SignInComponent,
@@ -66,6 +74,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         "src/app/auth/components/open-account/open-account.component"
       );
       this.modalService.open(this.modalService.modalMyAccountComponent);
+      this.currentUserService.setUserName(this.username);
     }
   }
   private async addSignIn(): Promise<void> {}

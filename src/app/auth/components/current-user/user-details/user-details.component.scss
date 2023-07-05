@@ -35,6 +35,9 @@
   &__photo {
     width: 80px;
     height: 80px;
+    display: flex;
+    flex: none;
+    align-items: center;
     border: 1px solid $lightBlack;
     border-radius: 50px;
     overflow: hidden;

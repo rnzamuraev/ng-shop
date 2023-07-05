@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { LocalStorageService } from "src/app/shared/services/local-storage.service";
-import { IUserResponse } from "src/app/auth/types/auth.interface";
 import { LogInService } from "src/app/auth/components/log-in/log-in.service";
+import { IUserResponse } from "src/app/auth/types/auth.interface";
+import { LocalStorageService } from "src/app/shared/services/local-storage.service";
+import { CurrentUserService } from "../current-user.service";
 
 @Component({
   selector: "shop-user-details",
@@ -11,7 +12,7 @@ import { LogInService } from "src/app/auth/components/log-in/log-in.service";
 export class UserDetailsComponent implements OnInit {
   public listLink = [
     { path: "my-details", text: "My details", active: true },
-    { path: "my-orders", text: "My orders", active: true },
+    { path: "my-orders", text: "My orders", active: false },
     { path: "address-book", text: "Address book", active: false },
     { path: "change-password", text: "Change password", active: false },
     { path: "payment-methods", text: "Payment methods", active: false },
@@ -27,14 +28,22 @@ export class UserDetailsComponent implements OnInit {
 
   constructor(
     private localStorageService: LocalStorageService,
-    private logInService: LogInService
+    private logInService: LogInService,
+    private currentUserService: CurrentUserService
   ) {}
 
   ngOnInit(): void {
+    // console.log(this.currentUser.avatar);
     this.setIsToken();
+    // this.setIsAvatar();
+    console.log("this.currentUser.avatar");
+    this.currentUserService.getUser$.subscribe(user => {
+      console.log(typeof user.avatar);
+    });
   }
 
   private setIsToken() {
+    console.log("setIsToken");
     const token = this.localStorageService.get(this.logInService.getTokenKey);
     if (typeof token === "string") this.isToken = true;
     else this.isToken = false;
@@ -52,6 +61,7 @@ export class UserDetailsComponent implements OnInit {
 
   public onSignOut() {
     this.localStorageService.remove(this.logInService.getTokenKey);
+    this.currentUserService.setUserName$(this.currentUserService.getUserGuest);
   }
   public onSignIn() {}
   public onSignUp() {}
