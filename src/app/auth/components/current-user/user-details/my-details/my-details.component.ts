@@ -1,6 +1,13 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
-import { IUserResponse } from "src/app/auth/types/auth.interface";
+
+import { CurrentUserService } from "src/app/auth/components/current-user/current-user.service";
+import {
+  ICreateUserRequest,
+  ISaveChangeRequest,
+  IUserResponse,
+} from "src/app/auth/types/auth.interface";
+import { MyDetailsService } from "./my-details.service";
 
 @Component({
   selector: "shop-my-details",
@@ -36,12 +43,17 @@ export class MyDetailsComponent implements OnInit {
       type: "email",
     },
     {
-      category: "Avatar",
+      category: "Avatar * ",
       data: this.currentUser?.avatar,
       controlName: "avatar",
       type: "text",
     },
   ];
+
+  constructor(
+    private myDetailsService: MyDetailsService,
+    private currentUserService: CurrentUserService
+  ) {}
 
   ngOnInit(): void {
     this.setUserData();
@@ -49,7 +61,7 @@ export class MyDetailsComponent implements OnInit {
   }
 
   private setUserData() {
-    const name = this.currentUser.name.split(",");
+    const name = this.currentUser.name.split(" ");
     this.userFirstName = name[0];
     if (name.length > 0) {
       this.userLastName = name[1];
@@ -66,16 +78,37 @@ export class MyDetailsComponent implements OnInit {
     });
   }
 
+  private subscribePutSaveChange(data: ICreateUserRequest, id: number) {
+    this.myDetailsService.putSaveChange(data, id).subscribe(user => {
+      console.log(user);
+
+      if (typeof user !== "number") {
+        console.log(user);
+        this.currentUser = user;
+        this.setUserData();
+        this.initForm();
+        this.currentUserService.setUser$(user);
+        this.currentUserService.setUserName$(user.name);
+      }
+    });
+  }
+
   public createData() {
-    return {
-      name: `${this.form.value.firstName} ${this.form.value.lastName}`,
+    let lastName = this.form.value.lastName;
+    if (lastName === null) lastName = "";
+
+    const data: ISaveChangeRequest = {
+      name: `${this.form.value.firstName} ${lastName}`.trim(),
       email: this.form.value.email,
+      password: this.currentUser.password,
       avatar: this.form.value.avatar,
     };
+
+    return data;
   }
 
   public onChangeUserData() {
-    this.createData();
+    this.subscribePutSaveChange(this.createData(), this.currentUser.id);
     console.log(this.createData());
   }
 }

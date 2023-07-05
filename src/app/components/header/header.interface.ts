@@ -1,8 +1,8 @@
 export enum EPath {
   logo = "/",
-  user = "user",
-  favorite = "favorites",
-  bag = "bag",
+  user = "/user",
+  favorite = "/favorites",
+  bag = "/bag",
 }
 export enum EIcons {
   logo = "../../../assets/img/icons/LOGO.svg",

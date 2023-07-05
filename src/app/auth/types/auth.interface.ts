@@ -12,6 +12,12 @@ export interface IUserResponse extends ICreateUserRequest {
   id: number;
   role: string;
 }
+export interface ISaveChangeRequest {
+  name: string;
+  email: string;
+  password: string;
+  avatar: string | null;
+}
 
 export interface ITokenResponse {
   access_token: string;

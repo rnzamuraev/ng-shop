@@ -13,8 +13,11 @@ export class CurrentUserService implements OnInit {
   private token!: string;
   private tokenKey = this.logInService.getTokenKey;
   private userInfoKey = "_user-info_";
-  private user$ = new Subject<IUserResponse>(); //***
-  private username$ = new Subject<string>();
+  private user$ = new Subject<IUserResponse>();
+  private userName$ = new Subject<string>();
+  private username!: string;
+  private userGuest: string = "Guest";
+  public user!: IUserResponse;
   private userHeight$ = new Subject<string>();
   public initUserHeight!: string;
 
@@ -56,6 +59,22 @@ export class CurrentUserService implements OnInit {
     this.user$.next(user);
   }
 
+  public get getUserName$() {
+    return this.userName$.asObservable();
+  }
+  public setUserName$(username: string) {
+    console.log(username);
+    this.userName$.next(username);
+  }
+
+  public get getUserName() {
+    return this.username;
+  }
+  public setUserName(username: string) {
+    console.log(username);
+    this.username = username;
+  }
+
   public get getToken(): string | null {
     const token: string | null = this.localStorage.get(this.tokenKey);
     if (token === null) return null;
@@ -68,20 +87,16 @@ export class CurrentUserService implements OnInit {
     return this.userInfoKey;
   }
 
-  public get getUserName$(): Observable<string> {
-    return this.username$.asObservable();
-  }
-  public setUserName$(name: string) {
-    console.log(name);
-    this.username$.next(name);
-  }
   // ***********
 
-  public get getUserInfo(): null | any {
+  public get getUserInfo(): boolean | null {
     const userInfo = this.localStorage.get(this.userInfoKey);
     console.log(userInfo);
 
     console.log(userInfo.user);
     return userInfo.user;
+  }
+  public get getUserGuest(): string {
+    return this.userGuest;
   }
 }

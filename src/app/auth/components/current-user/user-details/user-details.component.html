@@ -26,8 +26,6 @@
       <shop-my-details [currentUser]="currentUser"></shop-my-details>
     </div>
     <!-- </div> -->
-  </div>
-  <div class="user__no-content">
     <shop-loading *ngIf="!currentUser && isToken"></shop-loading>
     <div *ngIf="!currentUser && !isToken" class="user__sign-in"><span (click)="onSignIn()">Sign In</span> to Your
       Account or
@@ -35,4 +33,6 @@
       and Get Started!
     </div>
   </div>
+  <!-- <div class="user__no-content">
+  </div> -->
 </div>

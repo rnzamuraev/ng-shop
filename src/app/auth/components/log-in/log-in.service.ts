@@ -5,11 +5,12 @@ import { LOGIN_URL } from "src/app/config";
 import { LocalStorageService } from "src/app/shared/services/local-storage.service";
 import {
   ICheckTheEmailRequest,
-  IHttpErrorResponse,
-  IUserRequest,
+  ICheckTheEmailResponse,
   ICreateUserRequest,
-  IUserResponse,
+  IHttpErrorResponse,
   ITokenResponse,
+  IUserRequest,
+  IUserResponse,
 } from "../../types/auth.interface";
 
 @Injectable({
@@ -25,12 +26,10 @@ export class LogInService {
   }
 
   // *** Sign In *** //
-  // public postSignIn(body: IUser): Observable<Object | IToken | number> {
   public postSignIn(body: IUserRequest): Observable<ITokenResponse | number> {
     return this.http.post<ITokenResponse>(`${LOGIN_URL}/api/v1/auth/login`, body).pipe(
       catchError((err: IHttpErrorResponse) => {
-        console.error(err.message);
-        console.log(err);
+        console.error(err);
         return of(err.status);
       })
     );
@@ -38,20 +37,16 @@ export class LogInService {
 
   // *** Sign Up *** //
   public postSignUp(body: ICreateUserRequest): Observable<IUserResponse | number> {
-    // return this.http.post(`${LOGIN_URL}/api/v1/auth/login`, body).pipe();
     return this.http.post<IUserResponse>(`${LOGIN_URL}/api/v1/users/`, body).pipe(
       catchError((err: IHttpErrorResponse) => {
+        console.error(err);
         return of(err.status);
       })
     );
   }
 
   // *** check the email *** //
-  public postCheckTheEmail(body: ICheckTheEmailRequest): Observable<boolean> {
-    return this.http.post<boolean>(`${LOGIN_URL}/api/v1/users/is-available`, body);
+  public postCheckTheEmail(body: ICheckTheEmailRequest): Observable<ICheckTheEmailResponse> {
+    return this.http.post<ICheckTheEmailResponse>(`${LOGIN_URL}/api/v1/users/is-available`, body);
   }
-
-  // public checkTheEmail(email: ICheckTheEmail): Observable<boolean> {
-  //   return this.http.post<boolean>(`${LOGIN_URL}/api/v1/users/is-available`, email );
-  // }
 }
