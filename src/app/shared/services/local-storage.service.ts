@@ -34,7 +34,7 @@ export class LocalStorageService {
     console.log(this.favorites);
   }
   // ***** ************** *****//
-  get(key: any) {
+  get(key: string) {
     try {
       const data = localStorage.getItem(key);
       console.log(data);

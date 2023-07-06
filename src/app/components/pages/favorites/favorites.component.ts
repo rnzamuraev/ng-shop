@@ -26,10 +26,11 @@ export class FavoritesComponent implements OnInit, OnDestroy {
     this.favoritesService.initFavorites$();
   }
 
-  public async onOpenModal(): Promise<void> {
-    const { LogInComponent } = await import("src/app/auth/components/log-in/log-in.component");
-    this.modalService.open(this.modalService.modalSignInComponent);
+  public onOpenModal(): void {
+    // const { LogInComponent } = await import("src/app/auth/components/log-in/log-in.component");
+    // this.modalService.open(this.modalService.modalSignInComponent);
     this.modalService.setIsLogin$(true);
+    this.modalService.addSignIn();
   }
 
   ngOnDestroy(): void {

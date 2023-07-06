@@ -1,9 +1,10 @@
 import { DOCUMENT } from "@angular/common";
 import { ComponentRef, Inject, Injectable } from "@angular/core";
 import { Subject } from "rxjs";
-import { ICreateANewModal } from "src/app/components/modal/modal.interface";
-import { OpenAccountComponent } from "src/app/auth/components/open-account/open-account.component";
+import { CurrentUserService } from "src/app/auth/components/current-user/current-user.service";
 import { LogInComponent } from "src/app/auth/components/log-in/log-in.component";
+import { OpenAccountComponent } from "src/app/auth/components/open-account/open-account.component";
+import { ICreateANewModal } from "src/app/components/modal/modal.interface";
 
 @Injectable({
   providedIn: "root",
@@ -11,20 +12,21 @@ import { LogInComponent } from "src/app/auth/components/log-in/log-in.component"
 export class ModalService {
   private control$ = new Subject<null | ICreateANewModal>();
   private modalRef$ = new Subject<ComponentRef<LogInComponent | OpenAccountComponent>>();
+  private isLogin = true;
   private isLogin$ = new Subject<boolean>();
-  public modalSignInComponent = {
-    component: LogInComponent,
-    context: {
-      // isLogin: false,
-      // onCloseModal: () => {
-      //   this.close();
-      // },
-    },
-  };
-  public modalMyAccountComponent = {
-    component: OpenAccountComponent,
-    context: {},
-  };
+  // private modalSignInComponent = {
+  //   component: LogInComponent,
+  //   context: {
+  //     // isLogin: false,
+  //     // onCloseModal: () => {
+  //     //   this.close();
+  //     // },
+  //   },
+  // };
+  // private modalMyAccountComponent = {
+  //   component: OpenAccountComponent,
+  //   context: {},
+  // };
 
   private calcWidthScrollBar() {
     const div = this.document.createElement("div");
@@ -45,7 +47,10 @@ export class ModalService {
     this.document.body.style.paddingRight = `0`;
   }
 
-  constructor(@Inject(DOCUMENT) private document: Document) {}
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private currentUserService: CurrentUserService
+  ) {}
 
   public overflowOn() {
     this.document.body.style.overflow = "hidden";
@@ -64,6 +69,7 @@ export class ModalService {
     this.control$.next(null);
     this.overflowOff();
     this.modalRef$.forEach(modal => modal.destroy());
+
   }
 
   public get modalViewContentRef() {
@@ -74,10 +80,49 @@ export class ModalService {
     this.modalRef$.next(data);
   }
 
+  //  *** IsLogin *** //
+  public get getIsLogin() {
+    return this.isLogin;
+  }
   public get getIsLogin$() {
     return this.isLogin$.asObservable();
   }
   public setIsLogin$(data: boolean) {
     this.isLogin$.next(data);
+    this.isLogin = data;
+    console.log("isLogin: ", data);
   }
+
+  public async addSignIn(): Promise<void> {
+    const { LogInComponent } = await import("src/app/auth/components/log-in/log-in.component");
+    // this.open(this.modalSignInComponent);
+    this.open({
+      component: LogInComponent,
+      context: {},
+    });
+  }
+  public async addMyAccount(): Promise<void> {
+    const { OpenAccountComponent } = await import(
+      "src/app/auth/components/open-account/open-account.component"
+    );
+    // this.open(this.modalMyAccountComponent);
+    this.open({
+      component: OpenAccountComponent,
+      context: {},
+    });
+    this.currentUserService.setUserName$(this.currentUserService.getUserName);
+  }
+  // public setContentModal() {
+  //   console.log(this.currentUserService.getIsToken);
+
+  //   if (this.currentUserService.getIsToken) {
+  //     console.log("isToken: ", this.currentUserService.getIsToken);
+  //     console.log("addMyAccount(): ");
+  //     this.addMyAccount();
+  //   } else if (!this.currentUserService.getIsToken) {
+  //     console.log("isToken: ", this.currentUserService.getIsToken);
+  //     console.log("addSignIn(): ");
+  //     this.addSignIn();
+  //   }
+  // }
 }

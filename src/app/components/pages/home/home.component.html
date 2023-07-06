@@ -1,6 +1,6 @@
 <shop-main></shop-main>
-<shop-block-cards [myBtnTextContent]="myTrendingBtnText" [myTitle]="myTrendingTitle" [products]="newProductsRating"
-  #blockCard></shop-block-cards>
+<shop-block-cards [routePath]="routePathTrending" [myBtnTextContent]="myTrendingBtnText" [myTitle]="myTrendingTitle"
+  [products]="newProductsRating" #blockCard></shop-block-cards>
 <shop-newyear></shop-newyear>
-<shop-block-cards [myBtnTextContent]="myTrendingBtnText" [myTitle]="myLessThanTitle"
+<shop-block-cards [routePath]="routePathLess" [myBtnTextContent]="myTrendingBtnText" [myTitle]="myLessThanTitle"
   [products]="newProductsPrice"></shop-block-cards>

@@ -17,13 +17,7 @@ import {
   providedIn: "root",
 })
 export class LogInService {
-  private tokenKey = "access_token";
-
   constructor(private http: HttpClient, private localStorage: LocalStorageService) {}
-
-  public get getTokenKey(): string {
-    return this.tokenKey;
-  }
 
   // *** Sign In *** //
   public postSignIn(body: IUserRequest): Observable<ITokenResponse | number> {

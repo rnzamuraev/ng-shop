@@ -4,8 +4,8 @@
   <div *ngIf="isNotUser" class="form__error">*email or password not found</div>
   <input type="email" name="email" placeholder="email" formControlName="email">
   <!-- <div *ngIf="!isValidEmail" class="form__error">*password must be at least 6 characters</div> -->
-  <div *ngIf="formSignIn.get('email')?.invalid && formSignIn.get('email')?.touched" class="form__error">*password must
-    be at least 6 characters</div>
+  <div *ngIf="formSignIn.get('email')?.invalid && formSignIn.get('email')?.touched" class="form__error">
+    *password must be at least 6 characters</div>
   <input type="password" name="password" formControlName="password" placeholder="password">
   <!-- <input type="text" name="name" placeholder="Username"> -->
   <button class="form__btn" type="submit">Sign in</button>

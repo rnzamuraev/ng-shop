@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { CurrentUserService } from "src/app/auth/components/current-user/current-user.service";
 import { IUserResponse } from "src/app/auth/types/auth.interface";
-import { LocalStorageService } from "src/app/shared/services/local-storage.service";
 
 @Component({
   selector: "shop-current-user",
@@ -11,56 +10,75 @@ import { LocalStorageService } from "src/app/shared/services/local-storage.servi
 export class CurrentUserComponent implements OnInit {
   // private isTokenKey = this.currentUserService.getIsTokenKey;
   // private user$!: Observable<IUser | null>;
-  public currentUser: IUserResponse = this.currentUserService.user;
-  public userHeight!: string;
+  // public currentUser = this.currentUserService.getCurrentUser;
+  public currentUser!: IUserResponse;
+  public userHeight: string = this.currentUserService.getInitUserHeight;
+  private isToken: boolean = this.currentUserService.getIsToken;
 
-  private userInfoKey = this.currentUserService.getUserInfoKey;
+  // private userInfoKey = this.currentUserService.getUserInfoKey;
 
   constructor(
-    private currentUserService: CurrentUserService,
-    private localStorage: LocalStorageService
+    // private localStorage: LocalStorageService,
+    private currentUserService: CurrentUserService
   ) {}
+
   ngOnInit(): void {
-    this.subscribeUser();
+    this.subscribeCurrentUser();
     this.subscribeFetchUser();
     this.subscribeUserHeight();
+    this.subscribeIsToken();
+  }
+
+  private subscribeIsToken() {
+    this.currentUserService.getIsToken$.subscribe(data => {
+      console.log(data);
+
+      // this.currentUserService.setIsToken$();
+      this.isToken = data;
+    });
   }
 
   private subscribeUserHeight() {
-    this.userHeight = this.currentUserService.initUserHeight;
-
     this.currentUserService.getUserHeight$.subscribe(height => {
       console.log(height);
+
       this.userHeight = height;
     });
   }
 
-  private subscribeUser() {
-    this.currentUserService.getUser$.subscribe(user => {
+  private subscribeCurrentUser() {
+    this.currentUserService.getCurrentUser$.subscribe(user => {
       console.log(user);
-      if (!user) return;
+
+      if (user === null) return;
 
       this.currentUser = user;
       this.currentUserService.setUserName$(user.name);
-      console.log(user.role);
     });
   }
 
-  private subscribeFetchUser() {
-    const token = this.currentUserService.getToken;
-    console.log(token);
+  private subscribeFetchUser(): void {
+    // const token = this.currentUserService.getToken;
+    console.log("subscribeFetchUser");
+    console.log(this.isToken);
 
-    if (token === null) {
+    console.log("subscribeFetchUser");
+
+    if (!this.isToken) {
+      // this.currentUserService.setIsToken$(false);
+      // this.isToken = false;
       return;
     }
 
-    const userInfo = this.currentUserService.getUserInfo;
-    console.log(userInfo);
+    // this.isToken = true;
+    // const userInfo = this.currentUserService.getUserInfo;
+    // console.log(userInfo);
 
-    if (userInfo === true)
-      this.currentUserService.fetchUser().subscribe(user => {
-        console.log(user);
-        this.currentUserService.setUser$(user);
-      });
+    // if (userInfo === true)
+    this.currentUserService.setIsToken$(true);
+    this.currentUserService.fetchUser().subscribe(user => {
+      console.log(user);
+      this.currentUserService.setCurrentUser$(user);
+    });
   }
 }

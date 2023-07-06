@@ -4,7 +4,8 @@
     <div class="block-cards__list">
       <shop-card *ngFor="let prod of products" [product]="prod"></shop-card>
     </div>
-    <shop-btn [isBtnCondition]="isBtnCondition" [btnTextContent]="myBtnTextContent"></shop-btn>
+    <shop-btn routerLink="/{{routePath}}" [isBtnCondition]="isBtnCondition"
+      [btnTextContent]="myBtnTextContent"></shop-btn>
   </div>
   <span class="block__grow"></span>
 </section>

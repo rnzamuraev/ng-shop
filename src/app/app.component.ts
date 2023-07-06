@@ -2,6 +2,8 @@ import { Component, ElementRef, HostListener, OnInit, ViewChild } from "@angular
 import { CurrentUserService } from "src/app/auth/components/current-user/current-user.service";
 import { FavoritesService } from "src/app/components/pages/favorites/favorites.service";
 import { HomeService } from "src/app/components/pages/home/home.service";
+import { LocalStorageService } from "./shared/services/local-storage.service";
+import { EAuthStatic } from "./auth/types/authStatic.enum";
 
 @Component({
   selector: "shop-root",
@@ -27,7 +29,8 @@ export class AppComponent implements OnInit {
   constructor(
     private favoritesService: FavoritesService,
     private homeService: HomeService,
-    private currentUserService: CurrentUserService
+    private currentUserService: CurrentUserService,
+    private localStorage: LocalStorageService
   ) {}
 
   ngOnInit(): void {
@@ -42,7 +45,7 @@ export class AppComponent implements OnInit {
   }
 
   private setInitUserHeight() {
-    this.currentUserService.setInitUserHeight(this.windowMinHeight);
+    this.currentUserService.setUserHeight$(this.windowMinHeight);
   }
 
   private setWindowMinHeight() {
@@ -52,14 +55,17 @@ export class AppComponent implements OnInit {
   }
 
   private getToken() {
-    const token = this.currentUserService.getToken;
+    const token = this.localStorage.get(EAuthStatic.TOKEN_KEY);
     console.log(token);
 
     if (token === null) return;
-    else
-      this.currentUserService.fetchUser().subscribe(user => {
-        this.currentUserService.setUserName$(user.name);
-        this.currentUserService.setUser$(user);
-      });
+
+    // this.currentUserService.setToken$(token);
+    // this.localStorage.set(EAuthStatic.TOKEN_KEY);
+    this.currentUserService.setIsToken$(true);
+    this.currentUserService.fetchUser().subscribe(user => {
+      this.currentUserService.setUserName$(user.name);
+      this.currentUserService.setCurrentUser$(user);
+    });
   }
 }

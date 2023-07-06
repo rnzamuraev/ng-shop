@@ -3,6 +3,8 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ModalService } from "src/app/components/modal/modal.service";
 // import { SignInComponent } from "src/app/shared/ui/modal/sign-in/sign-in.component";
 import { CurrentUserService } from "src/app/auth/components/current-user/current-user.service";
+import { LogInService } from "src/app/auth/components/log-in/log-in.service";
+import { EAuthStatic } from "src/app/auth/types/authStatic.enum";
 import { EIcons, EPath, IIcons } from "./header.interface";
 
 @Component({
@@ -17,21 +19,44 @@ export class HeaderComponent implements OnInit, OnDestroy {
     { path: EPath.favorite, icon: EIcons.favorite, alt: "favorites" },
     { path: EPath.bag, icon: EIcons.bag, alt: "bag" },
   ];
-  public username = this.currentUserService.getUserGuest;
+  public username: string = EAuthStatic.GUEST;
+  public isToken!: boolean;
+  // public isLogin = this.modalService.getIsLogin;
 
   // private unsubscribeModalSequence$!: Subscription;
 
   // @ViewChild("formSignIn", { read: ViewContainerRef })
   // private formSignIn!: ViewContainerRef;
 
-  constructor(private modalService: ModalService, private currentUserService: CurrentUserService) {}
+  constructor(
+    private modalService: ModalService,
+    private currentUserService: CurrentUserService,
+    private loginService: LogInService
+  ) {}
 
   ngOnInit(): void {
-    // const token = this.currentUserService.getToken;
+    this.isToken = this.currentUserService.getIsToken;
     this.subscribeUserName$();
+    this.subscribeIsToken();
     // if (token === null) return;
     // this.subscribeUser$();
+    console.log("this.isToken ngOnInit: ", this.isToken);
   }
+
+  private subscribeIsToken() {
+    console.log("subscribeIsToken");
+    this.currentUserService.getIsToken$.subscribe(data => {
+      console.log("this.isToken subscribeIsToken: ", data);
+      this.isToken = data;
+    });
+  }
+
+  // private subscribeIsLogin() {
+  //   console.log("subscribeIsToken");
+  //   this.modalService.getIsLogin$.subscribe(data => {
+  //     this.isLogin = data;
+  //   });
+  // }
 
   public subscribeUserName$() {
     this.currentUserService.getUserName$.subscribe(name => {
@@ -59,26 +84,48 @@ export class HeaderComponent implements OnInit, OnDestroy {
   //   },
   // };
 
-  public async onOpenModal(): Promise<void> {
+  // private async addSignIn(): Promise<void> {
+  //   const { LogInComponent } = await import("src/app/auth/components/log-in/log-in.component");
+  //   this.modalService.setIsLogin$(true);
+  //   this.modalService.open(this.modalService.modalSignInComponent);
+  // }
+  // private async addMyAccount(): Promise<void> {
+  //   const { OpenAccountComponent } = await import(
+  //     "src/app/auth/components/open-account/open-account.component"
+  //   );
+  //   this.modalService.open(this.modalService.modalMyAccountComponent);
+  //   this.currentUserService.setUserName$(this.username);
+  // }
+
+  private setContentModal() {
+    console.log(this.isToken);
+
+    if (this.isToken) {
+      console.log("isToken: ", this.isToken);
+      console.log("addMyAccount()");
+      this.modalService.addMyAccount();
+    } else {
+      console.log("isToken: ", this.isToken);
+      console.log("addSignIn");
+      this.modalService.setIsLogin$(true);
+      this.modalService.addSignIn();
+    }
+  }
+
+  public onOpenModal(): void {
+    this.setContentModal();
+    // this.setContentModal();
     // const { SignInComponent } = await import("src/app/shared/ui/modal/sign-in/sign-in.component");
     // this.modalService.open(this.modalService.modalSignInComponent);
     // this.modalService.setIsLogin$(true);
-    const token = this.currentUserService.getToken;
+    // const token = this.currentUserService.getToken;
 
-    if (token === null) {
-      const { LogInComponent } = await import("src/app/auth/components/log-in/log-in.component");
-      this.modalService.setIsLogin$(true);
-      this.modalService.open(this.modalService.modalSignInComponent);
-    } else {
-      const { OpenAccountComponent } = await import(
-        "src/app/auth/components/open-account/open-account.component"
-      );
-      this.modalService.open(this.modalService.modalMyAccountComponent);
-      this.currentUserService.setUserName(this.username);
-    }
+    // if (token === null) {
+    //   this.addSignIn();
+    // } else {
+    //   this.addMyAccount();
+    // }
   }
-  private async addSignIn(): Promise<void> {}
-  private async addMyAccount(): Promise<void> {}
 
   // public onOpenModal(): void {
   //   this.modalService.open(this.createANewModalWindow);
@@ -88,25 +135,3 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {}
 }
-
-// public async onOpenModal(): Promise<void> {
-//   const token = this.userService.getToken;
-//   console.log(token);
-
-//   // if (token === null) this.addSignIn();
-//   // else this.addMyAccount();
-
-//   if (token === null) {
-//     const { SignInComponent } = await import("src/app/shared/ui/modal/sign-in/sign-in.component");
-//     this.modalService.setIsLogin$(true);
-//     this.modalService.open(this.modalService.modalSignInComponent);
-//   } else {
-//     const { MyAccountComponent } = await import(
-//       "src/app/shared/ui/modal/my-account/my-account.component"
-//     );
-//     this.modalService.open(this.modalService.modalMyAccountComponent);
-//   }
-// }
-
-// private async addSignIn(): Promise<void> {}
-// private async addMyAccount(): Promise<void> {}

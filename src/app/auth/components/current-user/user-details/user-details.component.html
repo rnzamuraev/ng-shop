@@ -26,10 +26,13 @@
       <shop-my-details [currentUser]="currentUser"></shop-my-details>
     </div>
     <!-- </div> -->
-    <shop-loading *ngIf="!currentUser && isToken"></shop-loading>
-    <div *ngIf="!currentUser && !isToken" class="user__sign-in"><span (click)="onSignIn()">Sign In</span> to Your
+  </div>
+  <shop-loading *ngIf="!currentUser && isToken"></shop-loading>
+  <div *ngIf="!currentUser && !isToken" class="user__no-content">
+    <div class="user__login">
+      <span (click)="onOpenSignIn()">Sign In</span> to Your
       Account or
-      <span (click)="onSignUp()">Sign Up</span>
+      <span (click)="onOpenSignUp()">Sign Up</span>
       and Get Started!
     </div>
   </div>

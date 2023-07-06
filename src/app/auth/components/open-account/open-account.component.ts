@@ -4,6 +4,7 @@ import { CurrentUserService } from "src/app/auth/components/current-user/current
 import { LogInService } from "src/app/auth/components/log-in/log-in.service";
 import { ModalService } from "src/app/components/modal/modal.service";
 import { LocalStorageService } from "src/app/shared/services/local-storage.service";
+import { EAuthStatic } from "../../types/authStatic.enum";
 
 @Component({
   selector: "shop-open-account",
@@ -30,12 +31,21 @@ export class OpenAccountComponent implements OnInit {
   // }
 
   public onCloseModal() {
+    // this.router.navigate(["/my-account"]);
+    this.modalService.close();
+  }
+  public onMyAccount() {
+    this.router.navigate(["/my-account"]);
+    this.modalService.close();
+  }
+  public onMyOrders() {
     this.router.navigate(["/my-account"]);
     this.modalService.close();
   }
   public onSignOut() {
-    this.localStorageService.remove(this.logInService.getTokenKey);
-    this.currentUserService.setUserName$(this.currentUserService.getUserGuest);
+    this.localStorageService.remove(EAuthStatic.TOKEN_KEY);
+    this.currentUserService.setIsToken$(false);
+    this.currentUserService.setUserName$(EAuthStatic.GUEST);
     this.router.navigate(["/"]);
     this.modalService.close();
   }

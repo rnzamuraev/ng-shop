@@ -17,6 +17,8 @@ export class BlockCardsComponent implements OnInit {
   public myTitle!: string;
   @Input()
   public myBtnText!: string;
+  @Input()
+  public routePath!: string;
 
   constructor() {} // private cardProductService: CardProductService
 

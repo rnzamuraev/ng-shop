@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 // import { LOGIN_URL, LOGIN_URL_TOKEN } from "src/app/config";
@@ -11,6 +11,7 @@ import { CurrentUserService } from "src/app/auth/components/current-user/current
 import { LogInService } from "src/app/auth/components/log-in/log-in.service";
 // import { SignUpAction } from "src/app/auth/store/actions/sign-up.action";
 import { ICreateUserRequest, IUserRequest, IUserResponse } from "src/app/auth/types/auth.interface";
+import { EAuthStatic } from "../../types/authStatic.enum";
 
 @Component({
   selector: "shop-log-in",
@@ -19,9 +20,9 @@ import { ICreateUserRequest, IUserRequest, IUserResponse } from "src/app/auth/ty
 })
 export class LogInComponent implements OnInit, OnDestroy {
   private unsubscribeGetIsSignUp$!: Subscription;
-  private tokenKey = this.logInService.getTokenKey;
+  // private tokenKey = this.logInService.getTokenKey;
   public isNotUser = false;
-  public isLogin = true;
+  public isLogin = this.modalService.getIsLogin;
   public isEmail = true;
   // public isValidEmail: boolean | undefined = false;
   // public isValidPass: boolean | undefined = false;
@@ -31,7 +32,7 @@ export class LogInComponent implements OnInit, OnDestroy {
   constructor(
     private modalService: ModalService,
     private formBuilder: FormBuilder,
-    private logInService: LogInService,
+    private loginService: LogInService,
     private currentUserService: CurrentUserService,
     private localStorage: LocalStorageService,
     private router: Router,
@@ -44,37 +45,34 @@ export class LogInComponent implements OnInit, OnDestroy {
   // }
 
   public ngOnInit(): void {
-    this.subscribeGetIsSignUp$();
-
-    this.initFormSignIn();
+    console.log("ngOnInit form");
+    this.subscribeGetIsLogin$();
+    this.initForms();
   }
 
-  private subscribeGetIsSignUp$(): void {
-    this.unsubscribeGetIsSignUp$ = this.modalService.getIsLogin$.subscribe(boolean => {
+  private subscribeGetIsLogin$(): void {
+    this.modalService.getIsLogin$.subscribe(boolean => {
       console.log(this.isLogin);
+      console.log(boolean);
       this.isLogin = boolean;
     });
   }
 
   // *** FormSingUp *** //
   private initFormSignUp(): void {
-    this.formSignUp = new FormGroup({
-      email: new FormControl("", [
-        Validators.required,
-        Validators.pattern(/^[^@\s]+@[^@\s][\w]+\.[a-z]{2,}$/i),
-      ]),
-      password: new FormControl("", [
-        Validators.required,
-        Validators.pattern(/^(?=.*[\d])(?=.*[A-Z])[^(+,"=.№{|}?`;'~[/\]):\\_-]{6,}$/),
-      ]),
-      name: new FormControl("", [
-        Validators.required,
-        Validators.pattern(/^[a-z][a-z]+[ _]?[A-Z]*$/i),
-      ]),
-      avatar: new FormControl(
-        "https://krasivosti.pro/uploads/posts/2022-09/1663004988_2-krasivosti-pro-p-zastavka-na-telefon-pantera-krasivo-2.jpg"
-      ),
+    this.formSignUp = this.formBuilder.group({
+      email: ["", [Validators.required, Validators.pattern(/^[^@\s]+@[^@\s][\w]+\.[a-z]{2,}$/i)]],
+      password: [
+        "",
+        [
+          Validators.required,
+          Validators.pattern(/^(?=.*[\d])(?=.*[A-Z])[^(+,"=.№{|}?`;'~[/\]):\\_-]{6,}$/),
+        ],
+      ],
+      name: ["", [Validators.required, Validators.pattern(/^[a-z][a-z]+[ _]?[A-Z]*$/i)]],
+      avatar: [""],
     });
+    console.log("formSignUp");
   }
 
   // *** FormSingIn *** //
@@ -83,22 +81,25 @@ export class LogInComponent implements OnInit, OnDestroy {
       email: ["", [Validators.required, Validators.pattern(/^[^@\s]+@[^@\s][\w]+\.[a-z]{2,}$/i)]],
       password: ["", [Validators.required, Validators.minLength(6)]],
     });
+    console.log("formSignIn");
   }
 
   private initForms(): void {
-    if (this.isLogin) this.initFormSignIn();
-    else this.initFormSignUp();
+    this.initFormSignUp();
+    this.initFormSignIn();
   }
 
-  private subscribeSignIn(data: IUserRequest): void {
-    this.logInService.postSignIn(data).subscribe(res => {
+  private subscribePostSignIn(data: IUserRequest): void {
+    this.loginService.postSignIn(data).subscribe(res => {
       console.log(res);
       if (typeof res === "number") this.isNotUser = true;
       else {
         console.log(res.access_token);
         this.isNotUser = false;
-        this.localStorage.set(this.tokenKey, res.access_token);
-        this.currentUserService.getToken;
+        this.localStorage.set(EAuthStatic.TOKEN_KEY, res.access_token);
+        this.currentUserService.setIsToken$(true);
+        // this.currentUserService.setToken$(res.access_token);
+        // this.currentUserService.getToken;
         this.currentUserService.fetchUser().subscribe(res => {
           this.openMyAccount(res);
           console.log(res);
@@ -108,47 +109,41 @@ export class LogInComponent implements OnInit, OnDestroy {
   }
 
   public onSubmitSignIn(): void {
-    this.subscribeSignIn(this.formSignIn.value);
+    this.subscribePostSignIn(this.formSignIn.value);
   }
 
-  private subscribeSignUp(data: ICreateUserRequest): void {
+  private subscribePostSignUp(data: ICreateUserRequest): void {
     const email = this.formSignUp.value.email;
     const pass = this.formSignUp.value.password;
     console.log(this.formSignUp.value);
 
-    this.logInService.postSignUp(data).subscribe(res => {
+    this.loginService.postSignUp(data).subscribe(res => {
       console.log(res);
-
-      // if (this.isEmail === false) {
-      //   return;
-      // }
-
-      // this.isEmail = true;
-      console.log(res);
-      // console.log(typeof res);
 
       if (typeof res !== "number") {
-        // const data = {
-        //   email: email,
-        //   password: pass,
-        // };
+        const formData = {
+          email: email,
+          password: pass,
+        };
         // console.log(res);
         // console.log(data);
 
         // this.subscribeSignIn(data);
         this.isNotUser = false;
-        this.openMyAccount(res);
+        this.openMyAccount(res); // ***
         // this.currentUserService.user = res;
         // this.currentUserService.setUser$(res);
 
         // this.router.navigate(["/my-account"]);
         // this.modalService.close();
         // this.resetForm();
-        this.logInService.postSignIn(data).subscribe(res => {
+        this.loginService.postSignIn(formData).subscribe(res => {
           console.log(res);
           if (typeof res === "number") this.isNotUser = true;
           else {
-            this.localStorage.set(this.tokenKey, res.access_token);
+            this.localStorage.set(EAuthStatic.TOKEN_KEY, res.access_token);
+            this.currentUserService.setIsToken$(true);
+            // this.currentUserService.setToken$(res.access_token);
           }
         });
       }
@@ -156,7 +151,8 @@ export class LogInComponent implements OnInit, OnDestroy {
   }
 
   public onSubmitSignUp(): void {
-    this.subscribeSignUp(this.formSignUp.value);
+    this.formSignUp.value.avatar = EAuthStatic.AVATAR;
+    this.subscribePostSignUp(this.formSignUp.value);
     // this.store.dispatch(ChangeTheEmailAction({ email: this.formSignUp.value.email }));
     // this.store.dispatch(SignUpAction(this.formSignUp.value));
   }
@@ -174,8 +170,8 @@ export class LogInComponent implements OnInit, OnDestroy {
   }
 
   private openMyAccount(data: IUserResponse) {
-    this.currentUserService.user = data;
-    this.currentUserService.setUser$(data);
+    this.currentUserService.setCurrentUser$(data);
+    // this.currentUserService.setUser$(data);
     this.currentUserService.setUserName$(data.name);
 
     this.router.navigate(["/my-account"]);
@@ -187,11 +183,12 @@ export class LogInComponent implements OnInit, OnDestroy {
   public onOpenNewForm(): void {
     this.isLogin = !this.isLogin;
 
-    this.initForms();
+    // this.initForms();
     // this.isValid = false;
   }
 
   public ngOnDestroy(): void {
     // this.unsubscribeGetIsSignUp$.unsubscribe();
+    console.log("ngOnDestroy");
   }
 }

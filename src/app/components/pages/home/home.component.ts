@@ -13,6 +13,8 @@ import { HomeService } from "./home.service";
 })
 export class HomeComponent extends UnSubscribe implements OnInit, OnDestroy {
   public loading = true;
+  public routePathTrending = "trending";
+  public routePathLess = "less-than-100$";
   public myTrendingTitle = "Trending";
   public myLessThanTitle = "Less than 100$";
   public myTrendingBtnText = "See more";

@@ -87,7 +87,7 @@ export class MyDetailsComponent implements OnInit {
         this.currentUser = user;
         this.setUserData();
         this.initForm();
-        this.currentUserService.setUser$(user);
+        this.currentUserService.setCurrentUser$(user);
         this.currentUserService.setUserName$(user.name);
       }
     });
