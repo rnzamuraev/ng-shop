@@ -92,8 +92,6 @@ export class ProductInfoComponent implements OnInit, OnDestroy {
 
     this.productsService.setColor(this.myColor);
     this.productsService.setSize(this.mySize);
-
-    // this.localStorage.;
   }
 
   private setIsWidth() {
@@ -216,23 +214,22 @@ export class ProductInfoComponent implements OnInit, OnDestroy {
   }
 }
 
-//  public product!: IProduct;
-//   constructor(
-//     private productService: ProductService,
-//     @Inject(DOCUMENT) private document: Document
-//   ) {}
-
-//   ngOnInit(): void {
-//     this.productService
-//       .getProduct(this.productService.getProductId)
-//       .subscribe(prod => (this.product = prod));
-
-//     this.getUrlPagePathname();
+//  private setIsFavorites() {
+//     this.favoritesService.getNewFavorites.forEach(el => {
+//       if (el.id === this.product.id) {
+//         this.isFavorites = true;
+//       }
+//     });
 //   }
 
-//   public getUrlPagePathname() {
-//     const path = document.location.pathname.split("/");
-//     console.log(path);
+//   public onToggleFavorites() {
+//     this.isFavorites = !this.isFavorites;
 
-//     return path;
+//     if (this.isFavorites) {
+//       this.favoritesService.addToFavorites(this.product);
+//     } else {
+//       this.favoritesService.removeFromFavorites(this.product);
+//     }
+
+//     // this.favoritesService.setFavorites(this.product)
 //   }

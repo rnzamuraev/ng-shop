@@ -20,8 +20,8 @@ import { EAuthStatic } from "../../types/authStatic.enum";
 export class LogInComponent implements OnInit, OnDestroy {
   private unsubscribeGetIsSignUp$!: Subscription;
   // private tokenKey = this.logInService.getTokenKey;
-  public isNotUser = false;
-  public isLogin = this.modalService.getIsLogin;
+  // public isNotUser = false;
+  public isLogin!: boolean;
   public isToken!: boolean;
   public isEmail = true;
   public currentUserName = this.currentUserService.getUserName;
@@ -48,10 +48,13 @@ export class LogInComponent implements OnInit, OnDestroy {
     console.log("ngOnInit form");
     this.subscribeGetIsLogin$();
     this.subscribeGetIsToken$();
+    this.subscribeUserName$();
     this.initForms();
   }
 
   private subscribeGetIsLogin$(): void {
+    this.isLogin = this.modalService.getIsLogin;
+
     this.modalService.getIsLogin$.subscribe(boolean => {
       this.isLogin = boolean;
     });
@@ -61,6 +64,13 @@ export class LogInComponent implements OnInit, OnDestroy {
 
     this.currentUserService.getIsToken$.subscribe(boolean => {
       this.isToken = boolean;
+    });
+  }
+  private subscribeUserName$(): void {
+    this.currentUserName = this.currentUserService.getUserName;
+
+    this.currentUserService.getUserName$.subscribe(name => {
+      this.currentUserName = name;
     });
   }
 
@@ -98,10 +108,10 @@ export class LogInComponent implements OnInit, OnDestroy {
   private subscribePostSignIn(data: IUserRequest): void {
     this.loginService.postSignIn(data).subscribe(res => {
       console.log(res);
-      if (typeof res === "number") this.isNotUser = true;
+      if (typeof res === "number") return;
       else {
         console.log(res.access_token);
-        this.isNotUser = false;
+        // this.isNotUser = false;
         this.localStorage.set(EAuthStatic.TOKEN_KEY, res.access_token);
         // this.currentUserService.setToken$(res.access_token);
         // this.currentUserService.getToken;
@@ -135,7 +145,7 @@ export class LogInComponent implements OnInit, OnDestroy {
         // console.log(data);
 
         // this.subscribeSignIn(data);
-        this.isNotUser = false;
+        // this.isNotUser = false;
         this.openMyAccount(res); // ***
         // this.currentUserService.user = res;
         // this.currentUserService.setUser$(res);
@@ -145,7 +155,8 @@ export class LogInComponent implements OnInit, OnDestroy {
         // this.resetForm();
         this.loginService.postSignIn(formData).subscribe(res => {
           console.log(res);
-          if (typeof res === "number") this.isNotUser = true;
+          if (typeof res === "number") return;
+          // this.isNotUser = true;
           else {
             this.localStorage.set(EAuthStatic.TOKEN_KEY, res.access_token);
             this.currentUserService.setIsToken$(true);
@@ -207,6 +218,8 @@ export class LogInComponent implements OnInit, OnDestroy {
     this.currentUserService.setUserName$(EAuthStatic.GUEST);
     this.router.navigate(["/"]);
     this.modalService.close();
+    this.currentUserService.setUserName$("");
+    // this.currentUserName = "";
   }
 
   public ngOnDestroy(): void {

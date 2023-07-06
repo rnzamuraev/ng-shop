@@ -5,6 +5,9 @@ import { Component } from "@angular/core";
   templateUrl: "./product.component.html",
   styleUrls: ["./product.component.scss"],
 })
-export class ProductComponent{
- 
+export class ProductComponent {
+  private count!: number;
+  private bag!: number;
+
+  private setProduct() {}
 }

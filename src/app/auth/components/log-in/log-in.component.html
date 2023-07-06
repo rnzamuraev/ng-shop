@@ -1,7 +1,7 @@
 <form *ngIf="isLogin && !isToken" class="form" [formGroup]="formSignIn" (ngSubmit)="onSubmitSignIn()">
   <span class="form__close" (click)="onCloseModal()"></span>
   <h3 class="form__title">Sign In to Your Account</h3>
-  <div *ngIf="isNotUser" class="form__error">*email or password not found</div>
+  <div *ngIf="!isToken" class="form__error">*email or password not found</div>
   <input type="email" name="email" placeholder="email" formControlName="email">
   <!-- <div *ngIf="!isValidEmail" class="form__error">*password must be at least 6 characters</div> -->
   <div *ngIf="formSignIn.get('email')?.invalid && formSignIn.get('email')?.touched" class="form__error">
@@ -31,7 +31,7 @@
   </p>
 </form>
 
-<div *ngIf="isToken && currentUserName" class="my-account">
+<div *ngIf="isToken && currentUserName.length > 0" class="my-account">
   <span class="my-account__close" (click)="onCloseModal()"></span>
   <h3 class="my-account__title">Hi, {{currentUserName}}</h3>
   <!-- <div class="my-account__list-link"> -->

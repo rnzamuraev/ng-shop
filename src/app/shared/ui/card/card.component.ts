@@ -25,6 +25,10 @@ export class CardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.setIsFavorites();
+  }
+
+  private setIsFavorites() {
     this.favoritesService.getNewFavorites.forEach(el => {
       if (el.id === this.product.id) {
         this.isFavorites = true;

@@ -14,6 +14,7 @@ export class FavoritesComponent implements OnInit, OnDestroy {
   public myBtnTextContent = "Sign In";
   private unsubscribeFavorites$!: Subscription;
   public favorites: IProduct[] = [];
+  // private isFavorites!: boolean;
 
   constructor(private modalService: ModalService, private favoritesService: FavoritesService) {
     // this.favorites = this.favoritesService.getNewFavorites;

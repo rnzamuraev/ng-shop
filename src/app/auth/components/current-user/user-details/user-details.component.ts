@@ -73,6 +73,7 @@ export class UserDetailsComponent implements OnInit {
     this.localStorageService.remove(EAuthStatic.TOKEN_KEY);
     this.currentUserService.setIsToken$(false);
     this.currentUserService.setUserName$(EAuthStatic.GUEST);
+    this.currentUserService.setUserName$("");
     // this.currentUser = null
   }
   public onOpenSignIn() {
