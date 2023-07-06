@@ -6,7 +6,6 @@ import { Subscription } from "rxjs";
 import { ModalService } from "src/app/components/modal/modal.service";
 import { LocalStorageService } from "src/app/shared/services/local-storage.service";
 // import { Interceptor } from "./interceptor.service";
-import { Store } from "@ngrx/store";
 import { CurrentUserService } from "src/app/auth/components/current-user/current-user.service";
 import { LogInService } from "src/app/auth/components/log-in/log-in.service";
 // import { SignUpAction } from "src/app/auth/store/actions/sign-up.action";
@@ -23,7 +22,9 @@ export class LogInComponent implements OnInit, OnDestroy {
   // private tokenKey = this.logInService.getTokenKey;
   public isNotUser = false;
   public isLogin = this.modalService.getIsLogin;
+  public isToken!: boolean;
   public isEmail = true;
+  public currentUserName = this.currentUserService.getUserName;
   // public isValidEmail: boolean | undefined = false;
   // public isValidPass: boolean | undefined = false;
   public formSignIn!: FormGroup;
@@ -35,8 +36,7 @@ export class LogInComponent implements OnInit, OnDestroy {
     private loginService: LogInService,
     private currentUserService: CurrentUserService,
     private localStorage: LocalStorageService,
-    private router: Router,
-    private store: Store
+    private router: Router // private store: Store, //
   ) {}
 
   // onInput() {
@@ -47,14 +47,20 @@ export class LogInComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     console.log("ngOnInit form");
     this.subscribeGetIsLogin$();
+    this.subscribeGetIsToken$();
     this.initForms();
   }
 
   private subscribeGetIsLogin$(): void {
     this.modalService.getIsLogin$.subscribe(boolean => {
-      console.log(this.isLogin);
-      console.log(boolean);
       this.isLogin = boolean;
+    });
+  }
+  private subscribeGetIsToken$(): void {
+    this.isToken = this.currentUserService.getIsToken;
+
+    this.currentUserService.getIsToken$.subscribe(boolean => {
+      this.isToken = boolean;
     });
   }
 
@@ -97,13 +103,13 @@ export class LogInComponent implements OnInit, OnDestroy {
         console.log(res.access_token);
         this.isNotUser = false;
         this.localStorage.set(EAuthStatic.TOKEN_KEY, res.access_token);
-        this.currentUserService.setIsToken$(true);
         // this.currentUserService.setToken$(res.access_token);
         // this.currentUserService.getToken;
         this.currentUserService.fetchUser().subscribe(res => {
           this.openMyAccount(res);
           console.log(res);
         });
+        this.currentUserService.setIsToken$(true);
       }
     });
   }
@@ -170,12 +176,12 @@ export class LogInComponent implements OnInit, OnDestroy {
   }
 
   private openMyAccount(data: IUserResponse) {
+    this.modalService.close();
     this.currentUserService.setCurrentUser$(data);
     // this.currentUserService.setUser$(data);
     this.currentUserService.setUserName$(data.name);
 
     this.router.navigate(["/my-account"]);
-    this.modalService.close();
     this.resetForm();
   }
 
@@ -185,6 +191,22 @@ export class LogInComponent implements OnInit, OnDestroy {
 
     // this.initForms();
     // this.isValid = false;
+  }
+  // ****************************************
+  public onMyAccount() {
+    this.router.navigate(["/my-account"]);
+    this.modalService.close();
+  }
+  public onMyOrders() {
+    this.router.navigate(["/my-account"]);
+    this.modalService.close();
+  }
+  public onSignOut() {
+    this.localStorage.remove(EAuthStatic.TOKEN_KEY);
+    this.currentUserService.setIsToken$(false);
+    this.currentUserService.setUserName$(EAuthStatic.GUEST);
+    this.router.navigate(["/"]);
+    this.modalService.close();
   }
 
   public ngOnDestroy(): void {

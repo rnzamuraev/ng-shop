@@ -31,7 +31,6 @@ export class OpenAccountComponent implements OnInit {
   // }
 
   public onCloseModal() {
-    // this.router.navigate(["/my-account"]);
     this.modalService.close();
   }
   public onMyAccount() {

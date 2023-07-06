@@ -69,7 +69,6 @@ export class ModalService {
     this.control$.next(null);
     this.overflowOff();
     this.modalRef$.forEach(modal => modal.destroy());
-
   }
 
   public get modalViewContentRef() {
@@ -101,28 +100,15 @@ export class ModalService {
       context: {},
     });
   }
-  public async addMyAccount(): Promise<void> {
-    const { OpenAccountComponent } = await import(
-      "src/app/auth/components/open-account/open-account.component"
-    );
-    // this.open(this.modalMyAccountComponent);
-    this.open({
-      component: OpenAccountComponent,
-      context: {},
-    });
-    this.currentUserService.setUserName$(this.currentUserService.getUserName);
-  }
-  // public setContentModal() {
-  //   console.log(this.currentUserService.getIsToken);
-
-  //   if (this.currentUserService.getIsToken) {
-  //     console.log("isToken: ", this.currentUserService.getIsToken);
-  //     console.log("addMyAccount(): ");
-  //     this.addMyAccount();
-  //   } else if (!this.currentUserService.getIsToken) {
-  //     console.log("isToken: ", this.currentUserService.getIsToken);
-  //     console.log("addSignIn(): ");
-  //     this.addSignIn();
-  //   }
+  // public async addMyAccount(): Promise<void> {
+  //   const { OpenAccountComponent } = await import(
+  //     "src/app/auth/components/open-account/open-account.component"
+  //   );
+  //   // this.open(this.modalMyAccountComponent);
+  //   this.open({
+  //     component: OpenAccountComponent,
+  //     context: {},
+  //   });
+  //   this.currentUserService.setUserName$(this.currentUserService.getUserName);
   // }
 }

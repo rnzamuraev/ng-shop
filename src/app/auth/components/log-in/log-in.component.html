@@ -1,4 +1,4 @@
-<form *ngIf="isLogin" class="form" [formGroup]="formSignIn" (ngSubmit)="onSubmitSignIn()">
+<form *ngIf="isLogin && !isToken" class="form" [formGroup]="formSignIn" (ngSubmit)="onSubmitSignIn()">
   <span class="form__close" (click)="onCloseModal()"></span>
   <h3 class="form__title">Sign In to Your Account</h3>
   <div *ngIf="isNotUser" class="form__error">*email or password not found</div>
@@ -13,7 +13,7 @@
   </p>
 </form>
 
-<form *ngIf="!isLogin" class="form" [formGroup]="formSignUp" (ngSubmit)="onSubmitSignUp()">
+<form *ngIf="!isLogin && !isToken" class="form" [formGroup]="formSignUp" (ngSubmit)="onSubmitSignUp()">
   <span class="form__close" (click)="onCloseModal()"></span>
   <h3 class="form__title">Register</h3>
   <input type="email" name="email" formControlName="email" placeholder="email">
@@ -30,3 +30,13 @@
   <p class="form__sign-in">Already have an account? <span (click)="onOpenNewForm()">Sign In!</span>
   </p>
 </form>
+
+<div *ngIf="isToken && currentUserName" class="my-account">
+  <span class="my-account__close" (click)="onCloseModal()"></span>
+  <h3 class="my-account__title">Hi, {{currentUserName}}</h3>
+  <!-- <div class="my-account__list-link"> -->
+  <a class="my-account__link" (click)="onMyAccount()">My Account</a>
+  <a class="my-account__link" (click)="onMyOrders()">My Orders</a>
+  <a class="my-account__link" (click)="onSignOut()">Sign Out</a>
+  <!-- </div> -->
+</div>

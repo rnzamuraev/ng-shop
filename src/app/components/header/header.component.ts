@@ -100,16 +100,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private setContentModal() {
     console.log(this.isToken);
 
-    if (this.isToken) {
-      console.log("isToken: ", this.isToken);
-      console.log("addMyAccount()");
-      this.modalService.addMyAccount();
-    } else {
-      console.log("isToken: ", this.isToken);
-      console.log("addSignIn");
-      this.modalService.setIsLogin$(true);
-      this.modalService.addSignIn();
-    }
+    // if (this.isToken) {
+    // console.log("isToken: ", this.isToken);
+    // console.log("addMyAccount()");
+    // this.modalService.addMyAccount();
+    // } else {
+    // console.log("isToken: ", this.isToken);
+    // console.log("addSignIn");
+    this.modalService.setIsLogin$(true);
+    this.modalService.addSignIn();
+    // }
   }
 
   public onOpenModal(): void {
