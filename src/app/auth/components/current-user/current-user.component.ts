@@ -15,12 +15,7 @@ export class CurrentUserComponent implements OnInit {
   public userHeight: string = this.currentUserService.getInitUserHeight;
   private isToken: boolean = this.currentUserService.getIsToken;
 
-  // private userInfoKey = this.currentUserService.getUserInfoKey;
-
-  constructor(
-    // private localStorage: LocalStorageService,
-    private currentUserService: CurrentUserService
-  ) {}
+  constructor(private currentUserService: CurrentUserService) {}
 
   ngOnInit(): void {
     this.subscribeCurrentUser();

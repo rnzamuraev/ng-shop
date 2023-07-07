@@ -15,3 +15,8 @@ export interface IIcons {
   icon: EIcons;
   alt: string;
 }
+
+// export interface ISearchProd {
+//   id: number;
+//   title: string;
+// }

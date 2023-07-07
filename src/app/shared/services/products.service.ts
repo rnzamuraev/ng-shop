@@ -3,13 +3,13 @@ import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Observable, Subject, catchError, delay, of } from "rxjs";
 
-import { BASE_URL_TOKEN } from "src/app/config";
-import { colors, sizes } from "src/app/data/products";
-import { IProduct } from "src/app/shared/types/products";
 import {
   IProductColor,
   IProductSize,
 } from "src/app/components/pages/product/product-info/product-info.interface";
+import { BASE_URL_TOKEN } from "src/app/config";
+import { colors, sizes } from "src/app/data/products";
+import { IProduct } from "src/app/shared/types/products";
 
 @Injectable({ providedIn: "root" })
 export class ProductsService {

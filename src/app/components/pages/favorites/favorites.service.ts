@@ -1,12 +1,13 @@
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
 import { IProduct } from "src/app/shared/types/products";
+import { EPagesKey } from '../types/pages.enum'
 
 @Injectable({
   providedIn: "root",
 })
 export class FavoritesService {
-  private key = "favorites";
+  private key = EPagesKey.FAVORITES;
   private favorites$ = new Subject<IProduct[]>();
   private newFavorites: IProduct[] = [];
 

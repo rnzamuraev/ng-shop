@@ -1,9 +1,10 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from "@angular/core";
 import { CurrentUserService } from "src/app/auth/components/current-user/current-user.service";
+import { EAuthStatic } from "src/app/auth/types/authStatic.enum";
+import { BagService } from "src/app/components/pages/bag/bag.service";
 import { FavoritesService } from "src/app/components/pages/favorites/favorites.service";
 import { HomeService } from "src/app/components/pages/home/home.service";
-import { LocalStorageService } from "./shared/services/local-storage.service";
-import { EAuthStatic } from "./auth/types/authStatic.enum";
+import { LocalStorageService } from "src/app/shared/services/local-storage.service";
 
 @Component({
   selector: "shop-root",
@@ -30,7 +31,8 @@ export class AppComponent implements OnInit {
     private favoritesService: FavoritesService,
     private homeService: HomeService,
     private currentUserService: CurrentUserService,
-    private localStorage: LocalStorageService
+    private localStorage: LocalStorageService,
+    private bagService: BagService
   ) {}
 
   ngOnInit(): void {
@@ -38,6 +40,7 @@ export class AppComponent implements OnInit {
     this.setWindowMinHeight();
     this.getToken();
     this.setInitUserHeight();
+    this.initBag();
   }
 
   private initNewFavorites() {
@@ -67,5 +70,15 @@ export class AppComponent implements OnInit {
       this.currentUserService.setUserName$(user.name);
       this.currentUserService.setCurrentUser$(user);
     });
+  }
+
+  private initBag() {
+    const bag = this.bagService.getLocalStorage();
+    bag.bagProducts.forEach(prod => {
+      this.bagService.setBagProducts$(prod);
+    });
+
+    this.bagService.setTotalQuantity$(bag.totalQuantity);
+    //  if (arrBag.leng)
   }
 }

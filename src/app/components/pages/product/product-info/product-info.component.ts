@@ -1,17 +1,14 @@
 import { Location } from "@angular/common";
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { Observable, Subscription, of } from "rxjs";
 
+import { Router } from "@angular/router";
 import { HomeService } from "src/app/components/pages/home/home.service";
-import {
-  IProductColor,
-  IProductSize,
-} from "src/app/components/pages/product/product-info/product-info.interface";
 import { ProductInfoService } from "src/app/components/pages/product/product-info/product-info.service";
 import { LocalStorageService } from "src/app/shared/services/local-storage.service";
-import { ProductsService } from "src/app/shared/services/products.service";
 import { IProduct } from "src/app/shared/types/products";
+import { BagService } from "../../bag/bag.service";
+import { EProduct } from "../types/product.enum";
 
 @Component({
   selector: "shop-product-info",
@@ -19,26 +16,30 @@ import { IProduct } from "src/app/shared/types/products";
   styleUrls: ["./product-info.component.scss"],
 })
 export class ProductInfoComponent implements OnInit, OnDestroy {
-  public myBtnTextContentBuy = "Add to cart";
-  public addFavorites = "Add to favorites";
-  public removeFavorites = "Remove from favorites";
-  public myBtnTextContent = this.addFavorites;
+  public addToBag = EProduct.ADD_TO_BAG;
+  public goToBag = EProduct.GO_TO_BAG;
+  public addFavorites = EProduct.ADD_TO_FAVORITES;
+  public removeFavorites = EProduct.REMOVE_fROM_FAVORITES;
+  public favoritesBtnTextContent = EProduct.ADD_TO_FAVORITES;
+  public bagBtnTextContent = EProduct.ADD_TO_BAG;
   public Black = "black";
-  public carousel = [{ path: "" }];
+  @Input()
   public myProduct!: IProduct;
-  public myColor: IProductColor[] = [];
-  public mySize: IProductSize[] = [];
-  public isBtnCondition = false;
+  // public myColor: IProductColor[] = [];
+  // public mySize: IProductSize[] = [];
+  // public isBagBtnCondition = false;
   public isColorCondition!: boolean;
   public myFavorites!: IProduct[];
-  private widthWindow!: number;
-  public isWidth!: boolean;
+
+  private isFavoritesBtnCondition = false;
+  private totalQuantity!: number;
+  private quantity = 0;
+  // public isWidth!: boolean;
 
   public productId!: number;
   public unsubscribeProductId$!: Subscription;
   public unsubscribeWindowWidth$!: Subscription;
-  // @ViewChildren("size")
-  // public size?: QueryList<ElementRef<HTMLSpanElement>>;
+
   public radioBtnColor = [
     { color: "red", isColor: true },
     { color: "blue", isColor: false },
@@ -49,114 +50,77 @@ export class ProductInfoComponent implements OnInit, OnDestroy {
     { size: "5", isSize: false },
     { size: "6.5", isSize: false },
   ];
-  public color = "";
-  public size = "";
+  public myProductColorName = "";
+  public myProductSize = "";
 
   public getData(arr: IProduct[]): Observable<IProduct[]> {
     return of(arr);
   }
 
   constructor(
-    private productsService: ProductsService,
-    private route: ActivatedRoute,
+    // private productsService: ProductsService,
     private location: Location,
     private productInfoService: ProductInfoService,
     private homeService: HomeService,
-    private localStorage: LocalStorageService
+    private localStorage: LocalStorageService,
+    private bagService: BagService,
+    private router: Router
   ) {}
 
-  public getProductId() {
-    this.route.params.subscribe(data => {
-      this.productId = data["id"];
-
-      this.color = this.radioBtnColor[0].color;
-      this.size = this.radioBtnSize[0].size;
-    });
-  }
-
   ngOnInit(): void {
-    this.widthWindow = window.innerWidth;
-    this.setIsWidth();
-    this.getProductId();
-    this.subscribeProductId$();
-    this.productInfoService.setProductId$(this.productId);
-    this.subscribeWindowWidth$();
+    this.totalQuantity = this.bagService.getTotalQuantity;
+    // this.widthWindow = window.innerWidth;
+    // this.setIsWidth();
+    // this.subscribeWindowWidth$();
     // *********
     //   this.localStorage.getData().forEach(el => {
-    //     if (el.id === this.myProduct[0].id) {
+    //     if (el.id === this.myProduct.id) {
     //       this.setIsBtnCondition();
     //     }
     //   });
     // });
     // ********
-
-    this.productsService.setColor(this.myColor);
-    this.productsService.setSize(this.mySize);
+    this.setQuantity();
   }
 
-  private setIsWidth() {
-    if (this.widthWindow > 1200) {
-      this.isWidth = false;
-    } else {
-      this.isWidth = true;
-    }
-  }
-
-  private subscribeWindowWidth$() {
-    this.unsubscribeWindowWidth$ = this.homeService.getWidthWindow$.subscribe(width => {
-      this.widthWindow = width;
-      this.setIsWidth();
+  private setQuantity() {
+    this.bagService.getBagProducts.forEach(prod => {
+      if (
+        prod.id === this.myProduct.id &&
+        prod.colorName === this.myProductColorName &&
+        prod.size === this.myProductSize
+      ) {
+        this.quantity = prod.quantity;
+      }
     });
+    this.setBagBtnTextContent();
   }
-  private subscribeProductId$() {
-    this.unsubscribeProductId$ = this.productInfoService.getProductId$.subscribe(id => {
-      console.log(this.productId);
-      this.productId = id;
-      console.log(this.productId);
-
-      // this.productId = this.getProductId();
-
-      console.log(this.route.data);
-      this.productInfoService.getProduct(this.productId).subscribe(product => {
-        console.log(product);
-        if (product === null) {
-          console.log("null");
-          this.location.back();
-          return;
-        }
-
-        this.myProduct = product;
-        console.log(this.myProduct);
-      });
-    });
+  private setBagBtnTextContent() {
+    if (this.quantity === 0) this.bagBtnTextContent = this.addToBag;
+    else this.bagBtnTextContent = this.goToBag;
   }
 
-  setIsBtnCondition() {
-    console.log("isBtnCondition: ", this.isBtnCondition);
-    this.isBtnCondition = !this.isBtnCondition;
-    console.log("isBtnCondition: ", this.isBtnCondition);
-    if (this.isBtnCondition) {
-      this.myBtnTextContent = this.removeFavorites;
-    } else {
-      this.myBtnTextContent = this.addFavorites;
-    }
+  private setFavoritesBtnTextContent() {
+    if (this.isFavoritesBtnCondition) this.favoritesBtnTextContent = this.addFavorites;
+    else this.favoritesBtnTextContent = this.removeFavorites;
+
+    this.isFavoritesBtnCondition = !this.isFavoritesBtnCondition;
+  }
+  public onToggleFavorites(el: IProduct) {
+    this.setFavoritesBtnTextContent();
+
+    if (this.isFavoritesBtnCondition) this.localStorage.addFavorites(el);
+    else this.localStorage.removeFavorites(el);
   }
 
-  public onFavoritesHandler(el: IProduct) {
-    this.setIsBtnCondition();
-
-    if (this.isBtnCondition) {
-      this.localStorage.addFavorites(el);
-    } else {
-      this.localStorage.removeFavorites(el);
-    }
-  }
+  // public onToggleBag() {
+  //   this.setIsFavoritesBtnCondition();
+  // }
 
   public onBackToShop() {
     this.location.back();
   }
 
-  public onResizeHandler(val: string) {}
   public onColorChangeHandler(val: string) {}
 
   public onColorChecked(value: string) {
@@ -164,72 +128,58 @@ export class ProductInfoComponent implements OnInit, OnDestroy {
 
     this.radioBtnColor.forEach(color => {
       color.isColor = false;
-      if (color.color === value) {
-        console.log("value: ", value);
-        color.isColor = true;
 
-        this.color = color.color;
-      }
+      if (color.color !== value) return;
+
+      console.log("value: ", value);
+      color.isColor = true;
+
+      this.myProductColorName = color.color;
     });
   }
 
   public onSizeChecked(value: string) {
     this.radioBtnSize.forEach(size => {
       size.isSize = false;
-      if (size.size === value) {
-        console.log("value: ", value);
-        size.isSize = true;
+      if (size.size !== value) return;
 
-        this.size = value;
-      }
+      console.log("value: ", value);
+      size.isSize = true;
+
+      this.myProductSize = value;
     });
   }
 
-  // private setValue(arr: IProductColor[] | IProductSize[], value: string) {
-  //   arr.forEach(val => {
-  //     if (val.color) {
-  //     } else {
-  //       val.isSize = false;
-  //       if (val.size === value) {
-  //         console.log("value: ", value);
-  //         val.isSize = true;
-  //       }
-  //     }
-  //   });
-  // }
+  private setTotalQuantity() {
+    console.log(this.totalQuantity);
+    this.totalQuantity = this.totalQuantity + 1;
+    console.log(this.totalQuantity);
+  }
 
-  public onAddToBag(product: IProduct) {
+  public onAddToBag() {
+    if (this.quantity === 1) {
+      this.router.navigate(["/bag"]);
+      return;
+    }
+
+    this.setTotalQuantity();
     console.log("newProduct");
     const newProduct = {
-      ...product,
-      color: this.color,
-      size: this.size,
+      ...this.myProduct,
+      colorName: this.myProductColorName,
+      size: this.myProductSize,
+      quantity: 1,
     };
     console.log(newProduct);
+
+    this.quantity = 1;
+    this.bagService.setBagProducts$(newProduct);
+    this.bagService.setTotalQuantity$(this.totalQuantity);
+    this.setBagBtnTextContent();
+    this.bagService.setBagToLocalStorage();
   }
 
   public ngOnDestroy(): void {
-    this.unsubscribeProductId$.unsubscribe();
-    this.unsubscribeWindowWidth$.unsubscribe();
+    // this.unsubscribeProductId$.unsubscribe();
   }
 }
-
-//  private setIsFavorites() {
-//     this.favoritesService.getNewFavorites.forEach(el => {
-//       if (el.id === this.product.id) {
-//         this.isFavorites = true;
-//       }
-//     });
-//   }
-
-//   public onToggleFavorites() {
-//     this.isFavorites = !this.isFavorites;
-
-//     if (this.isFavorites) {
-//       this.favoritesService.addToFavorites(this.product);
-//     } else {
-//       this.favoritesService.removeFromFavorites(this.product);
-//     }
-
-//     // this.favoritesService.setFavorites(this.product)
-//   }

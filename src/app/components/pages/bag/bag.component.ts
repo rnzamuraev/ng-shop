@@ -1,36 +1,37 @@
 import { Component, OnInit } from "@angular/core";
 import { IProduct } from "src/app/shared/types/products";
-import { BagService } from "./bag.service";
-
+import { BagService } from "src/app/components/pages/bag/bag.service";
+import { IProductBag } from "src/app/components/pages/bag/types/bag.interface";
 @Component({
   selector: "shop-bag",
   templateUrl: "./bag.component.html",
   styleUrls: ["./bag.component.scss"],
 })
 export class BagComponent implements OnInit {
-  public count!: number;
-  public bag: IProduct[] = [];
+  public totalQuantity!: number;
+  public bagProducts: IProductBag[] = [];
 
   constructor(private bagService: BagService) {}
 
   ngOnInit(): void {
-    this.subscribeGetCount();
-    this.subscribeGetBag();
+    this.subscribeGetTotalQuantity();
+    this.subscribeGetBagProducts();
   }
 
-  private subscribeGetCount() {
-    this.count = this.bagService.getCount;
+  private subscribeGetTotalQuantity(): void {
+    this.totalQuantity = this.bagService.getTotalQuantity;
 
-    this.bagService.getCount$.subscribe(num => {
-      this.count = num;
+    this.bagService.getTotalQuantity$.subscribe(quantity => {
+      this.totalQuantity = quantity;
     });
   }
-  private subscribeGetBag() {
-    this.bagService.getLocalStorage();
-    this.bag = this.bagService.getBag;
+  private subscribeGetBagProducts(): void {
+    console.log("subscribeGetBag");
 
-    this.bagService.getBag$.subscribe(num => {
-      this.bag = num;
+    this.bagProducts = this.bagService.getBagProducts;
+
+    this.bagService.getBagProducts$.subscribe(products => {
+      this.bagProducts = products;
     });
   }
 }

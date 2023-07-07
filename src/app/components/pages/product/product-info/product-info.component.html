@@ -44,13 +44,13 @@
         </div>
       </div>
       <div class="product-info__btns">
-        <shop-btn [btnTextContent]="myBtnTextContentBuy" (click)="onAddToBag(myProduct)"></shop-btn>
+        <shop-btn [btnTextContent]="bagBtnTextContent" (click)="onAddToBag()"></shop-btn>
         <span></span>
-        <shop-btn [btnTextContent]="myBtnTextContent" (click)="onFavoritesHandler(myProduct)"></shop-btn>
+        <shop-btn [btnTextContent]="favoritesBtnTextContent" (click)="onToggleFavorites(myProduct)"></shop-btn>
         <!-- <shop-btn [btnTextContent]="myBtnTextContent" shopHidden (click)="onFavoritesHandler(myProduct[0])"
           #favorites="hiddenControl"></shop-btn> -->
       </div>
-      <div *ngIf="!isWidth" class="product-info__description">
+      <div class="product-info__description">
         Description:
         <p> {{myProduct.description}}</p>
       </div>
@@ -60,8 +60,4 @@
       <span class="product-info__back" (click)="onBackToShop()">Back to shop</span>
     </div>
   </div>
-</div>
-<div *ngIf="isWidth" class="product-info__description">
-  description:
-  <p> {{myProduct.description}}</p>
 </div>

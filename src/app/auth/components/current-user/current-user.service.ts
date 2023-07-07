@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, OnInit } from "@angular/core";
-import { Observable, Subject, of } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { LogInService } from "src/app/auth/components/log-in/log-in.service";
 import { IUserResponse } from "src/app/auth/types/auth.interface";
 import { LOGIN_URL } from "src/app/config";
@@ -20,7 +20,7 @@ export class CurrentUserService implements OnInit {
   // private userInfoKey = "_user-info_";
   // private currentUser!: IUserResponse | null;
   private currentUser$ = new Subject<IUserResponse>();
-  private username!: string;
+  private username: string = "";
   private username$ = new Subject<string>();
   private userHeight!: string;
   private userHeight$ = new Subject<string>();
